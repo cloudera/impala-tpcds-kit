@@ -1,0 +1,4 @@
+node1.company.com
+node2.company.com
+node3.company.com
+node4.company.com
