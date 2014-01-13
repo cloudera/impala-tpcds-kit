@@ -5,6 +5,6 @@ set -e
 
 cat dn.txt | while read h
 do
-  scp -rp $HOME/tpcds-kit-hadoop $h:$HOME
+  scp -rp $HOME/tpcds-kit $h:$HOME
   scp -rp $HOME/impala-tpcds-kit $h:$HOME
 done

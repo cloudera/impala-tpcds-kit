@@ -1,5 +1,5 @@
-# path to the impala-tpcds-kit directory
-export TPCDS_ROOT=$HOME/impala-tpcds-kit
+# path to the tpcds-kit directory
+export TPCDS_ROOT=$HOME/tpcds-kit
 
 # top level directory for flat files in HDFS
 export FLATFILE_HDFS_ROOT=/user/${USER}/tpcds
