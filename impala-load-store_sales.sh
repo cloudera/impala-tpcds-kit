@@ -35,6 +35,7 @@ stored as parquetfile
 
 insert overwrite table store_sales
 partition(ss_sold_date_sk) [shuffle]
+select
 ss_sold_time_sk,
 ss_item_sk,
 ss_customer_sk,
