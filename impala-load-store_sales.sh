@@ -57,7 +57,6 @@ ss_coupon_amt,
 ss_net_paid,
 ss_net_paid_inc_tax,
 ss_net_profit,
-ss_date,
 ss_sold_date_sk
 from et_store_sales;
 EOF
