@@ -35,6 +35,7 @@ stored as parquetfile
 
 insert overwrite table store_sales
 partition(ss_sold_date_sk) [shuffle]
+select
 ss_sold_time_sk,
 ss_item_sk,
 ss_customer_sk,
@@ -57,7 +58,6 @@ ss_coupon_amt,
 ss_net_paid,
 ss_net_paid_inc_tax,
 ss_net_profit,
-ss_date,
 ss_sold_date_sk
 from et_store_sales;
 EOF
