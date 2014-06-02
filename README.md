@@ -56,7 +56,7 @@ These scripts also assume that your $HOME directory is the same path on all Data
 * Run `push-bits.sh` which will scp `tpcds-kit` and `impala-tpcds-kit` to each DataNode listed in `dn.txt`.
 * Run `set-nodenum.sh`.  This will create `impala-tpcds-kit/nodenum.sh` on every DataNode and set the value accordingly.  This is used to determine what portion of the distributed data generation is done on each node.
 
-## Preperation and Data Generation
+## Preparation and Data Generation
 
 Data is landed directly in HDFS so there is no requirement for any local storage.
 
