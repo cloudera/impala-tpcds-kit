@@ -45,9 +45,9 @@ create external table et_customer_demographics
   cd_credit_rating          string,
   cd_dep_count              int,
   cd_dep_employed_count     int,
-  cd_dep_college_count      int 
+  cd_dep_college_count      int
 )
-row format delimited fields terminated by '|' 
+row format delimited fields terminated by '|'
 location '${FLATFILE_HDFS_ROOT}/customer_demographics'
 tblproperties ('serialization.null.format'='')
 ;
@@ -81,7 +81,7 @@ create external table et_date_dim
   d_current_week            string,
   d_current_month           string,
   d_current_quarter         string,
-  d_current_year            string 
+  d_current_year            string
 )
 row format delimited fields terminated by '|'
 location '${FLATFILE_HDFS_ROOT}/date_dim'
@@ -131,7 +131,7 @@ create external table et_item
   i_manager_id              int,
   i_product_name            string
 )
-row format delimited fields terminated by '|' 
+row format delimited fields terminated by '|'
 location '${FLATFILE_HDFS_ROOT}/item'
 tblproperties ('serialization.null.format'='')
 ;
@@ -168,7 +168,7 @@ create external table et_store
   s_gmt_offset              double,
   s_tax_precentage          double
 )
-row format delimited fields terminated by '|' 
+row format delimited fields terminated by '|'
 location '${FLATFILE_HDFS_ROOT}/store'
 tblproperties ('serialization.null.format'='')
 ;
@@ -194,7 +194,7 @@ create external table et_customer
   c_email_address           string,
   c_last_review_date        string
 )
-row format delimited fields terminated by '|' 
+row format delimited fields terminated by '|'
 location '${FLATFILE_HDFS_ROOT}/customer'
 tblproperties ('serialization.null.format'='')
 ;
@@ -219,9 +219,9 @@ create external table et_promotion
   p_channel_demo            string,
   p_channel_details         string,
   p_purpose                 string,
-  p_discount_active         string 
+  p_discount_active         string
 )
-row format delimited fields terminated by '|' 
+row format delimited fields terminated by '|'
 location '${FLATFILE_HDFS_ROOT}/promotion'
 tblproperties ('serialization.null.format'='')
 ;
@@ -234,7 +234,7 @@ create external table et_household_demographics
   hd_dep_count              int,
   hd_vehicle_count          int
 )
-row format delimited fields terminated by '|' 
+row format delimited fields terminated by '|'
 location '${FLATFILE_HDFS_ROOT}/household_demographics'
 tblproperties ('serialization.null.format'='')
 ;

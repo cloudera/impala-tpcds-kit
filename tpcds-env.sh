@@ -16,4 +16,4 @@ export DSDGEN_THREADS_PER_NODE=12
 export DSDGEN_TOTAL_THREADS=$((DSDGEN_NODES * DSDGEN_THREADS_PER_NODE))
 
 # the name for the tpcds database
-export TPCDS_DBNAME=tpcds
+export TPCDS_DBNAME=tpcds_parquet
