@@ -12,7 +12,7 @@ def get_parser(description='TPC-SD Vertica'):
     return parser
 
 def sanitize_cmd(cmd):
-    return ' '.join(cmd.split('\n')).strip()
+    return cmd.replace('\n', ' ').strip()
 
 def get_ssh_client(opts):
     ssh = paramiko.SSHClient()
@@ -40,7 +40,7 @@ def vsql(ssh_client, opts, sql):
     Be sure to escape any " (double quotes) you use.
     '''
 
-    cleaned_sql = sql.replace('\n', ' ')
+    cleaned_sql = sanitize_cmd(sql)
 
     return ssh_vertica(ssh_client, '''
         echo "{sql}" | /opt/vertica/bin/vsql -U {vertica_username} -w {vertica_password} -h {vertica_host} -d {vertica_database} -p {vertica_port}
