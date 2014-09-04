@@ -2,3 +2,4 @@ tpcds-env.sh
 *.un~
 *.swp
 *.py[co]
+results

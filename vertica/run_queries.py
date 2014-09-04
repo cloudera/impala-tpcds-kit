@@ -1,3 +1,7 @@
+'''
+Run a set of queries in single-user or multi-user mode.
+'''
+
 from common import get_ssh_client, vsql, get_parser
 import os
 import json
@@ -15,31 +19,48 @@ ANALYTIC_QUERIES = ['q34', 'q46', 'q59', 'q79', 'ss_max']
 
 OUTPUT_LOCK = threading.Lock()
 
-def run_query():
-    pass
-
 def _daemon_worker_factory(job_queue):
+    '''
+    Helper function used when created a workerpool Worker.
+    Set the thread to run as a daemon.
+    '''
     w = workerpool.Worker(job_queue)
     w.setDaemon(True)
     return w
 
 def _get_time_from_result_str(result_str):
-  match = re.search('All rows formatted: (\d+\.\d+) ms', result_str)
-  if match:
-    return float(match.group(1))
+    '''
+    Parse vsql output to get the time it took to run a query
+    '''
+    match = re.search('All rows formatted: (\d+\.\d+) ms', result_str)
+    if match:
+        return float(match.group(1))
 
 def _run_query_and_get_time(_vsql, sql):
+    '''
+    Run a query with vsql with \timing enabled,
+    and parse the time the query took
+    '''
     stdout, stderr = _vsql(r"\timing\\\\{sql}".format(sql=sql))
     timing_str = stdout[-1].strip()
     t_ms = _get_time_from_result_str(timing_str)
     return t_ms/1000.0
 
 def _run_queries_for_user(_vsql, output_file, run_number, user_num, query_list):
-    for q_name, query in query_list:
-        time_s = _run_query_and_get_time(_vsql, user_num, q_name, query)
+    '''
+    Run queries in `query_list` for user `user_num`
+    Queries run sequentially for the user
+    Write the query times to file as they finish
+    '''
+    for q_name, sql in query_list:
+        time_s = _run_query_and_get_time(_vsql, sql)
         _mark_time_for_user_query_run(output_file, run_number, user_num, q_name, time_s)
 
 def _mark_time_for_user_query_run(output_file, run_number, user_num, q_name, time_s, mode='a+b'):
+    '''
+    Write to `output_file` the run number, user number, query name, and time it took.
+    Multiple threads will call this as they finish
+    '''
     with OUTPUT_LOCK:
         with open(output_file, mode) as fh:
             writer = csv.writer(fh, quoting=csv.QUOTE_ALL)
@@ -48,6 +69,14 @@ def _mark_time_for_user_query_run(output_file, run_number, user_num, q_name, tim
             print row
 
 def run_queries(opts):
+    '''
+    Main entry point.
+
+    For each run,
+        asynchronously for each user,
+            randomize the list of queries
+            run the queries sequentially
+    '''
     query_fnames = []
     if opts.interactive:
         query_fnames += INTERACTIVE_QUERIES
@@ -57,9 +86,12 @@ def run_queries(opts):
         query_fnames += ANALYTIC_QUERIES
 
     queries = []
-    for fname in query_fnames:
+    for qname in query_fnames:
+        fname = qname + '.sql'
         with open(os.path.join(opts.query_dir, fname)) as fh:
-            queries.append((fname, fh.read().strip()))
+            queries.append((qname, fh.read().strip()))
+
+    print 'running {0} queries {1} times {2}'.format(len(queries), opts.num_runs, [q[0] for q in queries])
 
     results_dir = os.path.dirname(opts.results_file)
     if not os.path.exists(results_dir):
@@ -67,35 +99,37 @@ def run_queries(opts):
     # write csv header
     _mark_time_for_user_query_run(opts.results_file, 'run_number', 'user', 'query', 'time_s', 'wb')
 
-    workers = workerpool.WorkerPool(size=opts.num_users, 
+    workers = workerpool.WorkerPool(size=opts.num_users,
                                     worker_factory=_daemon_worker_factory)
     results = Queue.Queue()
     print 'starting runs, writing to ', opts.results_file
-    for run_num in xrange(opts.num_runs):
-        for user_num in xrange(opts.num_users):
+    for run_num in xrange(1, opts.num_runs + 1):
+        for user_num in xrange(1, opts.num_users + 1):
             query_list = copy.copy(queries)
             random.shuffle(query_list)
             ssh_client = get_ssh_client(opts)
             _vsql = lambda s: vsql(ssh_client, opts, s)
-            workers.put(workerpool.SimpleJob(results, 
-                                             _run_queries_for_user, 
-                                             [_vsql, opts.results_file, run_num, 
+            workers.put(workerpool.SimpleJob(results,
+                                             _run_queries_for_user,
+                                             [_vsql, opts.results_file, run_num,
                                               user_num, query_list]))
-            workers.join()
-            print 'finished run', run_num
+        print 'waiting for jobs to complete in run ', run_num
+        workers.join()
+        print 'finished run', run_num
 
     workers.shutdown()
     workers.join()
 
 if __name__ == '__main__':
     parser = get_parser('Create TPC-SD tables in vertica')
-    parser.add_argument('--query-dir', 
-        default=os.path.join(os.path.dirname(__file__), '../queries-sql92-modified/queries/'))
-    parser.add_argument('--results-file', required=True, help='Where to store results')
     parser.add_argument('--interactive', action='store_true', help='Run interactive queries')
     parser.add_argument('--reporting', action='store_true', help='Run reporting queries')
     parser.add_argument('--analytic', action='store_true', help='Run analytic queries')
-    parser.add_argument('--num-users', action='store_true', help='Number of users to simulate', default=1)
-    parser.add_argument('--num-runs', action='store_true', help='Number of runs for each test', default=3)
+    parser.add_argument('--num-users', type=int, help='Number of users to simulate', default=1)
+    parser.add_argument('--num-runs', type=int, help='Number of runs for each test', default=3)
+    parser.add_argument('--results-file', required=True, help='Where to store results')
+    parser.add_argument('--query-dir',
+        default=os.path.join(os.path.dirname(__file__), '../queries-sql92-modified/queries/'),
+        help='path to directory where queries are located')
     opts = parser.parse_args()
     run_queries(opts)
