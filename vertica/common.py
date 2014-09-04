@@ -1,5 +1,6 @@
 import paramiko
 import argparse
+import re
 
 def get_parser(description='TPC-SD Vertica'):
     parser = argparse.ArgumentParser(description=description)
@@ -12,7 +13,8 @@ def get_parser(description='TPC-SD Vertica'):
     return parser
 
 def sanitize_cmd(cmd):
-    return cmd.replace('\n', ' ').strip()
+    # remove comments and newlines
+    return re.sub('--.*', '', cmd).replace('\n', ' ').strip()
 
 def get_ssh_client(opts):
     ssh = paramiko.SSHClient()
