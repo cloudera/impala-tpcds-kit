@@ -8,6 +8,8 @@ count=$DSDGEN_THREADS_PER_NODE
 
 start=(NODENUM-1)*$count+1
 
+TPCDS_ROOT="${CLUSTER_HOMEDIR}/${TPCDS_DIR}"
+
 # hard coded for the store_sales table for now
 t=store_sales
 
@@ -22,6 +24,6 @@ do
     -DISTRIBUTIONS ${TPCDS_ROOT}/tools/tpcds.idx \
     -TERMINATE N \
     -FILTER Y \
-    -QUIET Y | hdfs dfs -put - ${FLATFILE_HDFS_ROOT}/${t}/${t}_${c}_${DSDGEN_TOTAL_THREADS}.dat &
+    -QUIET Y | /opt/vertica/bin/vsql -U ${VERTICA_USER} -w ${VERTICA_PW} -h ${VERTICA_HOST} -d ${VERTICA_DB} -p ${VERTICA_PORT} -c "COPY ${t} FROM STDIN DELIMITER '|'" &
 done
 wait
