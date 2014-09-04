@@ -6,7 +6,7 @@ set -ex
 
 source tpcds-env.sh
 
-sudo yum -y install gcc make flex bison byacc git
+yum -y install gcc make flex bison byacc git
 
 cd $CLUSTER_HOMEDIR
 if [ ! -d tpcds-kit ]; then

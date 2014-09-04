@@ -12,7 +12,7 @@ do
     -DISTRIBUTIONS ${TPCDS_ROOT}/tools/tpcds.idx \
     -TERMINATE N \
     -FILTER Y \
-    -QUIET Y | /opt/vertica/bin/vsql -U ${VERTICA_USER} -w ${VERTICA_PW} -h ${VERTICA_HOST} -d ${VERTICA_DATABASE} -p ${VERTICA_PORT} -c "COPY ${t} FROM STDIN DELIMITER '|'" &
+    -QUIET Y | /opt/vertica/bin/vsql -U ${VERTICA_USER} -w ${VERTICA_PW} -h ${VERTICA_HOST} -d ${VERTICA_DB} -p ${VERTICA_PORT} -c "COPY ${t} FROM STDIN DELIMITER '|'" &
 
 done
 wait
