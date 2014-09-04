@@ -5,7 +5,7 @@ CREATE_TABLE_STMTS = [
     ('store_sales', '''
     create table if not exists store_sales
     (
-      ss_sold_date_sk           int,
+      ss_sold_date_sk           int NOT NULL,
       ss_sold_time_sk           int,
       ss_item_sk                int,
       ss_customer_sk            int,
@@ -29,7 +29,7 @@ CREATE_TABLE_STMTS = [
       ss_net_paid_inc_tax       double precision,
       ss_net_profit             double precision
     )
-    partitioned by ss_sold_date_sk
+    partition by ss_sold_date_sk
     ''',),
 
     ('customer_demographics', '''

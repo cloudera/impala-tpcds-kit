@@ -41,12 +41,12 @@ The scripts assume that you have passwordless SSH from the master node (where yo
 * `cd tpcds-kit/tools`
 * `make -f Makefile.suite`
 
-### Clone the Impala TPC-DS tools repo & Configure the HDFS directories
+### Clone the Vertica TPC-DS tools repo & Configure the HDFS directories
 
 * `cd $HOME`
 * clone this repo `git clone https://github.com/sohan/vertica-tpcds-kit`
 * `cd vertica-tpcds-kit`
-* Edit `tpcds_env.sh` and modify as needed.
+* `cp tpcds-env-sample.sh tpcds-env.sh` and modify as needed.
 * Edit `dn.txt` and put one DataNode hostname per line - no blank lines.
 * Run `push-bits.sh` which will scp `tpcds-kit` and `vertica-tpcds-kit` to each DataNode listed in `dn.txt`.
 * Run `set-nodenum.sh`.  This will create `vertica-tpcds-kit/nodenum.sh` on every DataNode and set the value accordingly.  This is used to determine what portion of the distributed data generation is done on each node.
