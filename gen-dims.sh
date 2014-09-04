@@ -1,6 +1,8 @@
 #!/bin/bash
 source tpcds-env.sh
 
+TPCDS_ROOT="${CLUSTER_HOMEDIR}/${TPCDS_DIR}"
+
 for t in date_dim time_dim customer customer_address customer_demographics household_demographics item promotion store
 do
   echo "Generating table $t"
