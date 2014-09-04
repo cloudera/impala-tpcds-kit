@@ -4,19 +4,13 @@ source tpcds-env.sh
 h=`head -n 1 dn.txt`
 
 QUERY=$(cat <<EOF
-select audit('', 'table');
-select
-    a1.object_name, round(a1.size_bytes/(1024^3), 2) as size_gb, a1.cell_count
-from
-    v_catalog.user_audits a1
-join (
-    select object_name, max(audit_start_timestamp) as audit_start_timestamp
-    from v_catalog.user_audits
-    group by object_name
-) a2
-on
-    a1.object_name = a2.object_name
-    and a1.audit_start_timestamp = a2.audit_start_timestamp;
+SELECT anchor_table_schema,
+       anchor_table_name,
+       ROUND(SUM(used_bytes) / ( 1024^3 ), 3) AS used_compressed_gb
+FROM   v_monitor.projection_storage
+GROUP  BY anchor_table_schema,
+          anchor_table_name
+ORDER  BY SUM(used_bytes) DESC;
 EOF
 )
 
