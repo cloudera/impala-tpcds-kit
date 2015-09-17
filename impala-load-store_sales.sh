@@ -29,7 +29,7 @@ create table store_sales
   ss_net_paid_inc_tax decimal(7,2),
   ss_net_profit decimal(7,2)
 )
-partitioned by (ss_sold_date_sk int)
+partitioned by (ss_sold_date_sk bigint)
 stored as parquetfile"
 
 python load-store-sales.py
