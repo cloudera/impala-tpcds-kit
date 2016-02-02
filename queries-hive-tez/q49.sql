@@ -41,7 +41,7 @@ select
  or
  web.currency_rank <= 10
  )
- union all
+ union
  select 
  'catalog' as channel
  ,catalog.item
@@ -85,7 +85,7 @@ select
  or
  catalog.currency_rank <=10
  )
- union all
+ union
  select 
  'store' as channel
  ,store.item

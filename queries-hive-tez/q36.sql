@@ -23,10 +23,10 @@
  ,
  results_rollup as
  (select gross_margin ,i_category ,i_class,0 as t_category, 0 as t_class, 0 as lochierarchy from results
- union all
+ union
  select sum(ss_net_profit)/sum(ss_ext_sales_price) as gross_margin,
    i_category, NULL AS i_class, 0 as t_category, 1 as t_class, 1 as lochierarchy from results group by i_category
- union all
+ union
  select sum(ss_net_profit)/sum(ss_ext_sales_price) as gross_margin,
    NULL AS i_category ,NULL AS i_class, 1 as t_category, 1 as t_class, 2 as lochierarchy from results)
  select 

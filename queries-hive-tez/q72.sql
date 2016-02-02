@@ -20,7 +20,7 @@ left outer join catalog_returns on (cr_item_sk = cs_item_sk and cr_order_number 
 where d1.d_week_seq = d2.d_week_seq
   and cs_sold_date_sk between 2452276 and 2452640
   and inv_quantity_on_hand < cs_quantity
-  and cast(d3.d_date as timestamp) > cast(date_add(d1.d_date,5) as timestamp) --+ interval 5 days
+  and d3.d_date > d1.d_date + 5
   and hd_buy_potential = '>10000'
   and d1.d_year = 2002
   and cd_marital_status = 'S'

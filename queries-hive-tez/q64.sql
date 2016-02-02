@@ -6,7 +6,8 @@ with cs_ui as
   where cs_item_sk = cr_item_sk
     and cs_order_number = cr_order_number
   group by cs_item_sk
-  having sum(cs_ext_list_price)>2*sum(cr_refunded_cash+cr_reversed_charge+cr_store_credit)),
+  --having sum(cs_ext_list_price)>2*sum(cr_refunded_cash+cr_reversed_charge+cr_store_credit)),
+  having sale > 2*refund),
 cross_sales as
  (select i_product_name product_name
      ,i_item_sk item_sk
@@ -44,9 +45,14 @@ cross_sales as
         ,customer_address ad2
         ,income_band ib1
         ,income_band ib2
-        ,item
-  WHERE  ss_store_sk = s_store_sk AND
+        ,(select * from item 
+	 where i_color in ('lavender','metallic','beige','gainsboro','chartreuse','lemon') and
+	 i_current_price between 6 and 6 + 10 and
+         i_current_price between 6 + 1 and 6 + 15) item1
+  WHERE  
+	 ss_store_sk = s_store_sk AND
          ss_sold_date_sk = d1.d_date_sk AND
+         ss_sold_date_sk between 2451180 and 2451910 AND
          ss_customer_sk = c_customer_sk AND
          ss_cdemo_sk= cd1.cd_demo_sk AND
          ss_hdemo_sk = hd1.hd_demo_sk AND
@@ -63,10 +69,10 @@ cross_sales as
          ss_promo_sk = p_promo_sk and
          hd1.hd_income_band_sk = ib1.ib_income_band_sk and
          hd2.hd_income_band_sk = ib2.ib_income_band_sk and
-         cd1.cd_marital_status <> cd2.cd_marital_status and
-         i_color in ('lavender','metallic','beige','gainsboro','chartreuse','lemon') and
-          i_current_price between 6 and 6 + 10 and
-          i_current_price between 6 + 1 and 6 + 15
+         cd1.cd_marital_status <> cd2.cd_marital_status -- and
+         -- i_color in ('lavender','metallic','beige','gainsboro','chartreuse','lemon') and
+         -- i_current_price between 6 and 6 + 10 and
+         -- i_current_price between 6 + 1 and 6 + 15
 group by i_product_name
        ,i_item_sk
        ,s_store_name
@@ -83,27 +89,27 @@ group by i_product_name
        ,d2.d_year
        ,d3.d_year
 )
-select cs1.product_name
-     ,cs1.store_name
-     ,cs1.store_zip
-     ,cs1.b_street_number
-     ,cs1.b_streen_name
-     ,cs1.b_city
-     ,cs1.b_zip
-     ,cs1.c_street_number
-     ,cs1.c_street_name
-     ,cs1.c_city
-     ,cs1.c_zip
-     ,cs1.syear
-     ,cs1.cnt
-     ,cs1.s1
-     ,cs1.s2
-     ,cs1.s3
-     ,cs2.s1
-     ,cs2.s2
-     ,cs2.s3
-     ,cs2.syear
-     ,cs2.cnt
+select cs1.product_name col1
+     ,cs1.store_name col2
+     ,cs1.store_zip col3
+     ,cs1.b_street_number col4
+     ,cs1.b_streen_name col5
+     ,cs1.b_city col6
+     ,cs1.b_zip col7
+     ,cs1.c_street_number col8
+     ,cs1.c_street_name col9
+     ,cs1.c_city col10
+     ,cs1.c_zip col11
+     ,cs1.syear col12
+     ,cs1.cnt col13
+     ,cs1.s1 col14
+     ,cs1.s2 col15
+     ,cs1.s3 col16
+     ,cs2.s1 col17
+     ,cs2.s2 col18
+     ,cs2.s3 col19
+     ,cs2.syear col20
+     ,cs2.cnt col21
 from cross_sales cs1,cross_sales cs2
 where cs1.item_sk=cs2.item_sk and
      cs1.syear = 1999 and
@@ -113,4 +119,5 @@ where cs1.item_sk=cs2.item_sk and
      cs1.store_zip = cs2.store_zip
 order by cs1.product_name
        ,cs1.store_name
-       ,cs2.cnt;
+       ,cs2.cnt
+limit 100;

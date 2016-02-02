@@ -1,6 +1,5 @@
 # A TPC-DS like benchmark for Cloudera Impala
 
-Based on TPC-DS v1.1.0 found at [http://www.tpc.org/tpcds/](http://www.tpc.org/tpcds/)
 
 **NOTICE: This repo contains modifications to the official TPC-DS specification so any results from this are not comparable to officially audited results.**
 
@@ -74,7 +73,7 @@ Data is landed directly in HDFS so there is no requirement for any local storage
 
 ## Queries
 
-`impala-tpcds-kit/queries` contains queries execute on Impala (v1.2.3+). Note that the
+`impala-tpcds-kit/queries` contains queries execute on Impala (v2.3+). Note that the
 queries are not qualified with a database name. In order to run them, the impala-shell
 needs to be run with the -d paramater. Alternatively, one can also issue a use db_name
 before running each individual query.

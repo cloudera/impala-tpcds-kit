@@ -1,17 +1,17 @@
 with ss as (
  select
-          i.i_manufact_id,sum(ss_ext_sales_price) total_sales
+          i_manufact_id,sum(ss_ext_sales_price) total_sales
  from
-  store_sales,
-  date_dim,
+ 	store_sales,
+ 	date_dim,
          customer_address,
-         item i
+         item
  where
-         i.i_manufact_id in (select
-  i1.i_manufact_id
+         i_manufact_id in (select
+  i_manufact_id
 from
- item i1
-where i1.i_category in ('Books'))
+ item
+where i_category in ('Books'))
  and     ss_item_sk              = i_item_sk
  and     ss_sold_date_sk         = d_date_sk
  and ss_sold_date_sk between 2450874 and 2450904
@@ -22,14 +22,14 @@ where i1.i_category in ('Books'))
  group by i_manufact_id),
  cs as (
  select
-          i2.i_manufact_id,sum(cs_ext_sales_price) total_sales
+          i_manufact_id,sum(cs_ext_sales_price) total_sales
  from
-  catalog_sales,
-  date_dim,
+ 	catalog_sales,
+ 	date_dim,
          customer_address,
-         item i2
+         item
  where
-         i2.i_manufact_id               in (select
+         i_manufact_id               in (select
   i_manufact_id
 from
  item
@@ -44,14 +44,14 @@ where i_category in ('Books'))
  group by i_manufact_id),
  ws as (
  select
-          i3.i_manufact_id,sum(ws_ext_sales_price) total_sales
+          i_manufact_id,sum(ws_ext_sales_price) total_sales
  from
-  web_sales,
-  date_dim,
+ 	web_sales,
+ 	date_dim,
          customer_address,
-         item i3
+         item
  where
-         i3.i_manufact_id               in (select
+         i_manufact_id               in (select
   i_manufact_id
 from
  item

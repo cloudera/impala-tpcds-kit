@@ -15,9 +15,9 @@
 
  results_rollup as
 ( select total_sum ,i_category ,i_class, g_category, g_class, 0 as lochierarchy from results
-  union all
+  union
   select sum(total_sum) as total_sum, i_category, NULL as i_class, 0 as g_category, 1 as g_class, 1 as lochierarchy from results group by i_category
-  union all
+  union
   select sum(total_sum) as total_sum, NULL as i_category, NULL as i_class, 1 as g_category, 1 as g_class, 2 as lochierarchy from results)
 select 
  total_sum ,i_category ,i_class, lochierarchy 

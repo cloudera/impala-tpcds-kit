@@ -6,9 +6,7 @@
       date_dim,
       store
  where ss_sold_date_sk = d_date_sk
-       and d_date between cast('2000-08-02' as timestamp)
-                  --and (cast('2000-08-02' as timestamp) + interval  30 days)
-                  and cast(date_add('2000-08-02',30) as timestamp) 
+       and d_date between '2000-08-02' and '2000-09-02'
        and ss_store_sk = s_store_sk
        and ss_sold_date_sk between 2451759 and 2451789
  group by s_store_sk)
@@ -21,9 +19,7 @@
       date_dim,
       store
  where sr_returned_date_sk = d_date_sk
-       and d_date between cast('2000-08-02' as timestamp)
-                  --and (cast('2000-08-02' as timestamp) + interval  30 days)
-		  and cast(date_add('2000-08-02',30) as timestamp)
+       and d_date between '2000-08-02' and '2000-09-02'
        and sr_store_sk = s_store_sk
        and sr_returned_date_sk between 2451759 and 2451789
  group by s_store_sk), 
@@ -34,9 +30,7 @@
  from catalog_sales,
       date_dim
  where cs_sold_date_sk = d_date_sk
-       and d_date between cast('2000-08-02' as timestamp)
-                  --and (cast('2000-08-02' as timestamp) + interval  30 days)
-		  and cast(date_add('2000-08-02',30) as timestamp)
+       and d_date between '2000-08-02' and '2000-09-02'
        and cs_sold_date_sk between 2451759 and 2451789
  group by cs_call_center_sk 
  ), 
@@ -47,9 +41,7 @@
  from catalog_returns,
       date_dim
  where cr_returned_date_sk = d_date_sk
-       and d_date between cast('2000-08-02' as timestamp)
-                  --and (cast('2000-08-02' as timestamp) + interval  30 days)
-		  and cast(date_add('2000-08-02',30) as timestamp)
+       and d_date between '2000-08-02' and '2000-09-02'
        and cr_returned_date_sk between 2451759 and 2451789
  ), 
  ws as
@@ -60,9 +52,7 @@
       date_dim,
       web_page
  where ws_sold_date_sk = d_date_sk
-       and d_date between cast('2000-08-02' as timestamp)
-                  --and (cast('2000-08-02' as timestamp) + interval  30 days)
-		  and cast(date_add('2000-08-02',30) as timestamp)
+       and d_date between '2000-08-02' and '2000-09-02'
        and ws_web_page_sk = wp_web_page_sk
        and ws_sold_date_sk between 2451759 and 2451789
  group by wp_web_page_sk), 
@@ -74,9 +64,7 @@
       date_dim,
       web_page
  where wr_returned_date_sk = d_date_sk
-       and d_date between cast('2000-08-02' as timestamp)
-                  --and (cast('2000-08-02' as timestamp) + interval  30 days)
-		  and cast(date_add('2000-08-02',30) as timestamp)
+       and d_date between '2000-08-02' and '2000-09-02'
        and wr_web_page_sk = wp_web_page_sk
        and wr_returned_date_sk between 2451759 and 2451789
  group by wp_web_page_sk),
@@ -116,9 +104,9 @@
  select *
  from (
  select channel, id, sales, sreturns, profit from  results
- union all
+ union
  select channel, NULL AS id, sum(sales) as sales, sum(sreturns) as sreturns, sum(profit) as profit from  results group by channel
- union all
+ union
  select NULL AS channel, NULL AS id, sum(sales) as sales, sum(sreturns) as sreturns, sum(profit) as profit from  results
 ) foo
 order by channel, id

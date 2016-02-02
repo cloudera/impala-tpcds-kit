@@ -124,9 +124,9 @@
  group by channel, id)
 select channel, id, sales, sreturns, profit from ( 
   select channel, id, sales, sreturns, profit from results
-  union all
+  union
   select channel, null as id, sum(sales), sum(sreturns), sum(profit) from results group by channel
-  union all
+  union
   select null as channel, null as id, sum(sales), sum(sreturns), sum(profit) from results) foo
 order by channel, id
 ;

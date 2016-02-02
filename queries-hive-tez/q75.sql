@@ -19,7 +19,7 @@ WITH all_sales AS (
                                                     AND cs_item_sk=cr_item_sk) 
        WHERE i_category='Shoes'
 	and cs_sold_date_sk between 2451180        and 2451910 
-       UNION ALL
+       UNION
        SELECT d_year
              ,i_brand_id
              ,i_class_id
@@ -33,7 +33,7 @@ WITH all_sales AS (
                                                 AND ss_item_sk=sr_item_sk) 
        WHERE i_category='Shoes'
 	and ss_sold_date_sk between 2451180        and 2451910 
-       UNION ALL
+       UNION
        SELECT d_year
              ,i_brand_id
              ,i_class_id

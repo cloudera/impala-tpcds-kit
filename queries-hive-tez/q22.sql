@@ -10,7 +10,7 @@ select  i_product_name
        where inventory.inv_date_sk=date_dim.d_date_sk
               and inventory.inv_item_sk=item.i_item_sk
               and inventory.inv_warehouse_sk = warehouse.w_warehouse_sk
-              and date_dim.d_month_seq between 1193 and 1193 + 11
+	and d_month_seq between 1207 and 1207 + 11
        group by i_product_name
                        ,i_brand
                        ,i_class

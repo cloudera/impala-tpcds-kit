@@ -5,9 +5,9 @@ with ss as (
  	date_dim,
          customer_address,
          item
- where item.i_item_id in (select
-     i.i_item_id
-from item i
+ where i_item_id in (select
+     i_item_id
+from item
 where i_color in ('plum','peach','sandy'))
  and     ss_item_sk              = i_item_sk
  and     ss_sold_date_sk         = d_date_sk
@@ -25,9 +25,9 @@ where i_color in ('plum','peach','sandy'))
          customer_address,
          item
  where
-         item.i_item_id               in (select
-  i.i_item_id
-from item i
+         i_item_id               in (select
+  i_item_id
+from item
 where i_color in ('plum','peach','sandy'))
  and     cs_item_sk              = i_item_sk
  and     cs_sold_date_sk         = d_date_sk
@@ -45,9 +45,9 @@ where i_color in ('plum','peach','sandy'))
          customer_address,
          item
  where
-         item.i_item_id               in (select
-  i.i_item_id
-from item i
+         i_item_id               in (select
+  i_item_id
+from item
 where i_color in ('plum','peach','sandy'))
  and     ws_item_sk              = i_item_sk
  and     ws_sold_date_sk         = d_date_sk
