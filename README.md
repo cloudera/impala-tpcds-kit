@@ -47,7 +47,7 @@ These scripts also assume that your $HOME directory is the same path on all Data
 * `cd $HOME` (use your `$HOME` directory as it's hard coded in some scripts for now)
 * clone this repo `git clone https://github.com/cloudera/impala-tpcds-kit`
 * `cd impala-tpcds-kit`
-* Edit `tpcds_env.sh` and modify as needed.  The defaults assume you have a `/user/$USER` directory in HDFS.  If you don't, run these commands:
+* Edit `tpcds-env.sh` and modify as needed.  The defaults assume you have a `/user/$USER` directory in HDFS.  If you don't, run these commands:
   * `sudo -u hdfs hdfs dfs -mkdir /user/$USER`
   * `sudo -u hdfs hdfs dfs -chown $USER /user/$USER`
   * `sudo -u hdfs hdfs dfs -chmod 777 /user/$USER`
