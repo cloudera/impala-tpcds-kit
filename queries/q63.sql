@@ -13,7 +13,7 @@ from (select i_manager_id
         and ss_store_sk = s_store_sk
         and d_month_seq in (1219,1219+1,1219+2,1219+3,1219+4,1219+5,1219+6,1219+7,1219+8,1219+9,1219+10,1219+11)
         and ((    i_category in ('Books','Children','Electronics')
-              and i_class in ('personal','portable','refernece','self-help')
+              and i_class in ('personal','portable','reference','self-help')
               and i_brand in ('scholaramalgamalg #14','scholaramalgamalg #7',
 		                  'exportiunivamalg #9','scholaramalgamalg #9'))
            or(    i_category in ('Women','Music','Men')
