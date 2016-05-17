@@ -1,7 +1,8 @@
 #!/bin/bash
 source tpcds-env.sh
 
-impala-shell -d $TPCDS_DBNAME <<EOF
+impala-shell $IMPALA_SHELL_OPTS -d $TPCDS_DBNAME <<EOF
+set REQUEST_POOL=$REQUEST_POOL;
 create table date_dim like et_date_dim stored as parquetfile;
 insert overwrite table date_dim select * from et_date_dim;
 

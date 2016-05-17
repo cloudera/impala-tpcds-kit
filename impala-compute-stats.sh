@@ -1,7 +1,8 @@
 #!/bin/bash
 source tpcds-env.sh
 
-impala-shell -d $TPCDS_DBNAME <<EOF
+impala-shell $IMPALA_SHELL_OPTS -d $TPCDS_DBNAME <<EOF
+set REQUEST_POOL=$REQUEST_POOL;
 compute stats date_dim;
 compute stats time_dim;
 compute stats customer;
