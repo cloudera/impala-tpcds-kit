@@ -25,3 +25,6 @@ export IMPALA_SHELL_OPTS=""
 
 # Set the REQUEST_POOL to use for Impala queries
 export REQUEST_POOL="default"
+
+# hostname of an impalad instance to connect to from master node
+IMPALAD=""

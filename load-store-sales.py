@@ -17,7 +17,8 @@ TPCDS_DB = os.getenv('TPCDS_DBNAME')
 IMPALA_SHELL_OPTS = os.getenv('IMPALA_SHELL_OPTS')
 if IMPALA_SHELL_OPTS == None: IMPALA_SHELL_OPTS = ""
 REQUEST_POOL = os.getenv('REQUEST_POOL')
-IMPALAD = socket.getfqdn()
+IMPALAD = os.getenv('IMPALAD')
+if IMPALAD == None: IMPALAD = socket.getfqdn()
 LOAD_FILE = "load_store_sales_tmp.sql"
 
 def get_mem_limit():
