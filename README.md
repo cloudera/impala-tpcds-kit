@@ -62,6 +62,7 @@ Data is landed directly in HDFS so there is no requirement for any local storage
 * `hdfs-mkdirs.sh` - Make HDFS directories for each table.
 * `gen-dims.sh` - Generate dimension flat files (runs on one DataNode only).
 * `run-gen-facts.sh` - Runs `gen-facts.sh` on each DataNode via ssh to generate STORE_SALES flat files.
+* `run-upload-facts.sh` - Runs `upload-facts.sh` on each DataNode via ssh to upload STORE_SALES flat files.
 
 ## Data Loading
 

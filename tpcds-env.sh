@@ -17,3 +17,7 @@ export DSDGEN_TOTAL_THREADS=$((DSDGEN_NODES * DSDGEN_THREADS_PER_NODE))
 
 # the name for the tpcds database
 export TPCDS_DBNAME=tpcds_parquet
+
+export dims="date_dim time_dim item customer customer_demographics household_demographics customer_address store promotion warehouse ship_mode reason income_band call_center web_page catalog_page web_site"
+export facts="store_sales store_returns web_sales web_returns catalog_sales catalog_returns inventory"
+
