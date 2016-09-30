@@ -8,7 +8,7 @@ count=$DSDGEN_THREADS_PER_NODE
 
 start=(NODENUM-1)*$count+1
 
-for t in $facts
+for t in store_sales web_sales catalog_sales inventory
 do
 
   for (( c=$start; c<($count+$start); c++ ))

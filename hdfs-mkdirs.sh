@@ -5,7 +5,7 @@ source ./tpcds-env.sh
 hdfs dfs -mkdir ${FLATFILE_HDFS_ROOT}
 
 # make a directory for each table
-for t in $dims
+for t in $dims $facts
 do 
   echo "making HDFS directory ${FLATFILE_HDFS_ROOT}/${t}"
   hdfs dfs -mkdir ${FLATFILE_HDFS_ROOT}/${t}

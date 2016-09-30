@@ -623,5 +623,6 @@ tblproperties ('serialization.null.format'='')
 ;
 
 
+
 show tables;
 EOF
