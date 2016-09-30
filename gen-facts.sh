@@ -21,7 +21,7 @@ do
     -PARALLEL ${DSDGEN_TOTAL_THREADS} \
     -DISTRIBUTIONS ${TPCDS_ROOT}/tools/tpcds.idx \
     -TERMINATE N \
-    -_FILTER Y \
+    -FILTER Y \
     -QUIET Y | hdfs dfs -put - ${FLATFILE_HDFS_ROOT}/${t}/${t}_${c}_${DSDGEN_TOTAL_THREADS}.dat &
 done
 wait
