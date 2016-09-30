@@ -77,3 +77,5 @@ Data is landed directly in HDFS so there is no requirement for any local storage
 queries are not qualified with a database name. In order to run them, the impala-shell
 needs to be run with the -d paramater. Alternatively, one can also issue a use db_name
 before running each individual query.
+
+Jianwei Li
