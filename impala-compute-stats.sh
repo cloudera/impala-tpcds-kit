@@ -1,5 +1,5 @@
 #!/bin/bash
-source tpcds-env.sh
+source ./tpcds-env.sh
 
 impala-shell -d $TPCDS_DBNAME <<EOF
 compute stats date_dim;

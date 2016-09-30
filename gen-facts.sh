@@ -1,8 +1,8 @@
 #!/bin/bash
-source tpcds-env.sh
+source ./tpcds-env.sh
 
 # find out what our node number is
-source nodenum.sh
+source ./nodenum.sh
 
 count=$DSDGEN_THREADS_PER_NODE
 
@@ -21,7 +21,7 @@ do
     -PARALLEL ${DSDGEN_TOTAL_THREADS} \
     -DISTRIBUTIONS ${TPCDS_ROOT}/tools/tpcds.idx \
     -TERMINATE N \
-    -FILTER Y \
+    -_FILTER Y \
     -QUIET Y | hdfs dfs -put - ${FLATFILE_HDFS_ROOT}/${t}/${t}_${c}_${DSDGEN_TOTAL_THREADS}.dat &
 done
 wait

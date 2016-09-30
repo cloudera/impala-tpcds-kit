@@ -1,5 +1,5 @@
 #!/bin/bash
-source tpcds-env.sh
+source ./tpcds-env.sh
 
 impala-shell -q "create database $TPCDS_DBNAME;"
 

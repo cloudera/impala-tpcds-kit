@@ -1,5 +1,5 @@
 #!/bin/bash
-source tpcds-env.sh
+source ./tpcds-env.sh
 
 impala-shell -d $TPCDS_DBNAME <<EOF
 create table date_dim like et_date_dim stored as parquetfile;

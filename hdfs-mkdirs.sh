@@ -1,5 +1,5 @@
 #!/bin/bash
-source tpcds-env.sh
+source ./tpcds-env.sh
 
 # make the table level dir
 hdfs dfs -mkdir ${FLATFILE_HDFS_ROOT}
