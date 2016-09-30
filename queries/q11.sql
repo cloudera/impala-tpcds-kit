@@ -1,4 +1,4 @@
--- start query 11 in stream 0 using template query11.tpl
+
 with year_total as (
  select c_customer_id customer_id
        ,c_first_name customer_first_name
@@ -73,4 +73,4 @@ with year_total as (
 -- order by t_s_secyear.customer_login
 order by t_s_secyear.customer_first_name
  limit 100 ;
--- end query 11 in stream 0 using template query11.tpl
+

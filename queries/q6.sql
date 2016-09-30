@@ -1,4 +1,4 @@
--- start query 6 in stream 0 using template query6.tpl
+
  select  a.ca_state state, count(*) cnt
  from customer_address a
      ,customer c
@@ -25,4 +25,4 @@
  having count(*) >= 10
  order by cnt 
  limit 100;
--- end query 6 in stream 0 using template query6.tpl
+

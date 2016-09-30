@@ -1,4 +1,4 @@
--- start query 22 in stream 0 using template query22.tpl
+
 with results as 
 (select  i_product_name
              ,i_brand
@@ -41,4 +41,4 @@ select i_product_name, i_brand, i_class, i_category,qoh
 from results_rollup
 order by qoh, i_product_name, i_brand, i_class, i_category
 limit 100;
--- end query 22 in stream 0 using template query22.tpl
+

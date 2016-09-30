@@ -1,4 +1,4 @@
--- start query 5 in stream 0 using template query5.tpl
+
  with ssr as
  (select s_store_id,
         sum(sales_price) as sales,
@@ -134,4 +134,4 @@ select channel, id, sales, sreturns, profit from (
   select null as channel, null as id, sum(sales), sum(sreturns), sum(profit) from results) foo
 order by channel, id
 ;
--- end query 5 in stream 0 using template query5.tpl
+

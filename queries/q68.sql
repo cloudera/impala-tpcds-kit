@@ -1,5 +1,5 @@
--- start query 68 in stream 0 using template query68.tpl
--- changed to match exact same partitions in original query
+
+
 select
   c_last_name,
   c_first_name,
@@ -59,4 +59,4 @@ order by
   c_last_name,
   ss_ticket_number
 limit 100;
--- end query 68 in stream 0 using template query68.tpl
+

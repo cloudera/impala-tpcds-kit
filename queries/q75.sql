@@ -1,4 +1,4 @@
--- start query 75 in stream 0 using template query75.tpl
+
 WITH all_sales AS (
  SELECT d_year
        ,i_brand_id
@@ -70,5 +70,5 @@ SELECT  prev_yr.d_year AS prev_year
    AND (curr_yr.sales_cnt / prev_yr.sales_cnt)  <0.9
  ORDER BY sales_cnt_diff
  limit 100 ; 
--- end query 75 in stream 0 using template query75.tpl
+
 

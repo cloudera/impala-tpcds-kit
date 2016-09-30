@@ -1,4 +1,4 @@
--- start query 73 in stream 0 using template query73.tpl
+
 select
   c_last_name,
   c_first_name,
@@ -47,4 +47,4 @@ where
 order by
   cnt desc
 ;
--- end query 73 in stream 0 using template query73.tpl
+

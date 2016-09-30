@@ -7,21 +7,10 @@
 
 The following tables are currently used:
 
-Dimension Tables:
+Dimension Tables: 17
 
-* DATE_DIM
-* TIME_DIM
-* CUSTOMER
-* CUSTOMER_ADDRESS
-* CUSTOMER_DEMOGRAPHICS
-* HOUSEHOLD_DEMOGRAPHICS
-* ITEM
-* PROMOTION
-* STORE
+Fact Tables: 7
 
-Fact Tables:
-
-* STORE_SALES
 
 ## Environment Setup Steps
 

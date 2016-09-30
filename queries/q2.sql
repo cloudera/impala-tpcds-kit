@@ -1,4 +1,4 @@
--- start query 2 in stream 0 using template query2.tpl
+
 with wscs as
  (select sold_date_sk
         ,sales_price
@@ -62,4 +62,4 @@ with wscs as
  order by d_week_seq1
  limit 100;
 
--- end query 2 in stream 0 using template query2.tpl
+

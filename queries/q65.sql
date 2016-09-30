@@ -1,4 +1,4 @@
--- start query 65 in stream 0 using template query65.tpl
+
 select
   s_store_name,
   i_item_desc,
@@ -55,4 +55,4 @@ order by
   s_store_name,
   i_item_desc
 limit 100;
--- end query 65 in stream 0 using template query65.tpl
+

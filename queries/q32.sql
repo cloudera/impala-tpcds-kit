@@ -1,4 +1,4 @@
--- start query 32 in stream 0 using template query32.tpl
+
 select  sum(cs_ext_discount_amt)  as excess_discount_amount 
 from 
    catalog_sales 
@@ -26,4 +26,4 @@ and cs_ext_discount_amt
 	  and cs_sold_date_sk  between 2450891 and 2450981
       ) 
 limit 100;
--- end query 32 in stream 0 using template query32.tpl
+

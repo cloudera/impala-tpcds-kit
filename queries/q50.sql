@@ -1,4 +1,4 @@
--- start query 50 in stream 0 using template query50.tpl
+
 select
    s_store_name
   ,s_company_id
@@ -58,4 +58,4 @@ order by s_store_name
         ,s_state
         ,s_zip
 limit 100;
--- end query 50 in stream 0 using template query50.tpl
+

@@ -1,4 +1,4 @@
--- start query 62 in stream 0 using template query62.tpl
+
 select
    substr(w_warehouse_name,1,20)
   ,sm_type
@@ -31,5 +31,5 @@ order by substr(w_warehouse_name,1,20)
         ,sm_type
        ,web_name
 limit 100;
--- end query 62 in stream 0 using template query62.tpl
+
 

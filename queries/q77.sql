@@ -1,4 +1,4 @@
--- start query 77 in stream 0 using template query77.tpl
+
  with ss as
  (select s_store_sk,
          sum(ss_ext_sales_price) as sales,
@@ -118,4 +118,4 @@
 ) foo
 order by channel, id
  limit 100;
--- end query 77 in stream 0 using template query77.tpl
+

@@ -1,4 +1,4 @@
--- start query 79 in stream 0 using template query79.tpl
+
 select
   c_last_name,
   c_first_name,
@@ -56,4 +56,4 @@ order by
   substr(s_city, 1, 30),
   profit 
   limit 100;
--- end query 79 in stream 0 using template query79.tpl
+

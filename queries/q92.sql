@@ -1,4 +1,4 @@
--- start query 92 in stream 0 using template query92.tpl
+
 select
    sum(ws_ext_discount_amt)  as "Excess_Discount_Amount"
 from
@@ -29,4 +29,3 @@ and ws_ext_discount_amt
 order by sum(ws_ext_discount_amt)
 limit 100;
 
--- end query 92 in stream 0 using template query92.tpl

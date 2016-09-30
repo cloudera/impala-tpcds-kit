@@ -1,4 +1,4 @@
--- start query 12 in stream 0 using template query12.tpl
+
 select  i_item_desc 
       ,i_category 
       ,i_class 
@@ -30,4 +30,4 @@ order by
         ,i_item_desc
         ,revenueratio
 limit 100;
--- end query 12 in stream 0 using template query12.tpl
+

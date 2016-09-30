@@ -1,4 +1,4 @@
--- start query 48 in stream 0 using template query48.tpl
+
 select sum (ss_quantity)
 from store_sales, store, (select * from customer_demographics where cd_marital_status = 'S' and cd_education_status = '4 yr Degree') as v1, (select * from customer_address where ca_country = 'United States' and ca_state in ('AK', 'IA', 'NE', 'NY', 'VA', 'AR', 'AZ', 'MI', 'NC')) as v2, date_dim
  where s_store_sk = ss_store_sk
@@ -20,4 +20,4 @@ from store_sales, store, (select * from customer_demographics where cd_marital_s
       )
 ;
 
--- end query 48 in stream 0 using template query48.tpl
+

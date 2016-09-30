@@ -1,4 +1,4 @@
--- start query 83 in stream 0 using template query83.tpl
+
 with sr_items as
  (select i_item_id item_id,
         sum(sr_return_quantity) sr_item_qty
@@ -66,4 +66,4 @@ with sr_items as
  order by sr_items.item_id
          ,sr_item_qty
  limit 100;
--- end query 83 in stream 0 using template query83.tpl
+

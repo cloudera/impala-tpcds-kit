@@ -1,4 +1,4 @@
--- start query 61 in stream 0 using template query61.tpl
+
 select  promotions,total,cast(promotions as decimal(15,4))/cast(total as decimal(15,4))*100
 from
   (select sum(ss_ext_sales_price) promotions
@@ -42,4 +42,4 @@ from
    and   d_moy  = 11) all_sales
 order by promotions, total
 limit 100;
--- end query 61 in stream 0 using template query61.tpl
+

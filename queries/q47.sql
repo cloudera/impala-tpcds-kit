@@ -1,4 +1,4 @@
--- start query 47 in stream 0 using template query47.tpl
+
 with v1 as (
  select i_category, i_brand,
         s_store_name, s_company_name,
@@ -50,4 +50,4 @@ with v1 as (
  order by sum_sales - avg_monthly_sales, d_year
  limit 100
  ;
--- end query 47 in stream 0 using template query47.tpl
+

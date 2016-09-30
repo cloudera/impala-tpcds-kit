@@ -1,4 +1,4 @@
--- start query 80 in stream 0 using template query80.tpl
+
  with ssr as
  (select  s_store_id as store_id,
           sum(ss_ext_sales_price) as sales,
@@ -109,4 +109,4 @@ results as
  ) foo
  order by channel, id
  limit 100;
--- end query 80 in stream 0 using template query80.tpl
+

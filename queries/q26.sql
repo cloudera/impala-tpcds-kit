@@ -1,4 +1,4 @@
--- start query 26 in stream 0 using template query26.tpl
+
 select  i_item_id,
         avg(cs_quantity) agg1,
         avg(cs_list_price) agg2,
@@ -18,4 +18,4 @@ select  i_item_id,
  group by i_item_id
  order by i_item_id
  limit 100;
--- end query 26 in stream 0 using template query26.tpl
+

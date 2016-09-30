@@ -1,4 +1,4 @@
--- start query 10 in stream 0 using template query10.tpl
+
 select
   cd_gender,
   cd_marital_status,
@@ -64,4 +64,4 @@ select
           cd_dep_employed_count,
           cd_dep_college_count
  limit 100;
--- end query 10 in stream 0 using template query10.tpl
+

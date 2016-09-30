@@ -1,4 +1,5 @@
--- start query 24 in stream 0 using template query24.tpl
+
+use tpcds_parquet;
 with ssales as
 (select STRAIGHT_JOIN c_last_name
 ,c_first_name
@@ -12,9 +13,9 @@ with ssales as
 ,i_size
 ,sum(ss_ext_sales_price) netpaid
 from (select sr_ticket_number,sr_item_sk,i_color from store_returns, item where  sr_item_sk = i_item_sk) store_returns,
-(select ss_ext_sales_price,ss_ticket_number,ss_item_sk, ss_customer_sk,ss_store_sk,i_color from store_sales_null,store, item where s_market_id=5 and ss_store_sk = s_store_sk and  ss_item_sk = i_item_sk)store_sales
+(select ss_ext_sales_price,ss_ticket_number,ss_item_sk, ss_customer_sk,ss_store_sk,i_color from store_sales,store, item where s_market_id=5 and ss_store_sk = s_store_sk and  ss_item_sk = i_item_sk)store_sales
 ,item item
-,(select c_last_name ,c_first_name, c_customer_sk,c_birth_country from customer_null where c_birth_country in (select upper(ca_country) as ca_country from store, customer_address where s_zip = ca_zip and s_market_id=5) )customer
+,(select c_last_name ,c_first_name, c_customer_sk,c_birth_country from customer where c_birth_country in (select upper(ca_country) as ca_country from store, customer_address where s_zip = ca_zip and s_market_id=5) )customer
 ,(select upper(ca_country) as ca_country, ca_state,ca_zip from customer_address where ca_zip in  (select s_zip from store where s_market_id=5)) customer_address
 ,store
 where
@@ -68,9 +69,9 @@ with ssales as
 ,i_size
 ,sum(ss_ext_sales_price) netpaid
 from (select sr_ticket_number,sr_item_sk,i_color from store_returns, item where  sr_item_sk = i_item_sk) store_returns,
-(select ss_ext_sales_price,ss_ticket_number,ss_item_sk, ss_customer_sk,ss_store_sk,i_color from store_sales_null,store, item where s_market_id=5 and ss_store_sk = s_store_sk and  ss_item_sk = i_item_sk)store_sales
+(select ss_ext_sales_price,ss_ticket_number,ss_item_sk, ss_customer_sk,ss_store_sk,i_color from store_sales,store, item where s_market_id=5 and ss_store_sk = s_store_sk and  ss_item_sk = i_item_sk)store_sales
 ,item item
-,(select c_last_name ,c_first_name, c_customer_sk,c_birth_country from customer_null where c_birth_country in (select upper(ca_country) as ca_country from store, customer_address where s_zip = ca_zip and s_market_id=5) )customer
+,(select c_last_name ,c_first_name, c_customer_sk,c_birth_country from customer where c_birth_country in (select upper(ca_country) as ca_country from store, customer_address where s_zip = ca_zip and s_market_id=5) )customer
 ,(select upper(ca_country) as ca_country, ca_state,ca_zip from customer_address where ca_zip in  (select s_zip from store where s_market_id=5)) customer_address
 ,store
 where
@@ -109,6 +110,5 @@ group by c_last_name
 , (select 0.05*avg(netpaid) paid2
 from ssales
 ) a2
-where a1.paid > a2.paid2
-;
--- end query 24 in stream 0 using template query24.tpl
+where a1.paid > a2.paid2;
+

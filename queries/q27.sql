@@ -1,4 +1,4 @@
--- start query 27 in stream 0 using template query27.tpl
+
  with results as
  (select i_item_id,
         s_state,
@@ -40,4 +40,4 @@
         ) foo
   order by i_item_id, s_state
  limit 100;
--- end query 27 in stream 0 using template query27.tpl
+

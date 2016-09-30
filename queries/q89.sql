@@ -1,4 +1,4 @@
--- start query 89 in stream 0 using template query89.tpl
+
 select
   *
 from
@@ -40,4 +40,4 @@ order by
   sum_sales - avg_monthly_sales,
   s_store_name
 limit 100;
--- end query 89 in stream 0 using template query89.tpl
+

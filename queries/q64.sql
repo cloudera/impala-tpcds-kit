@@ -1,4 +1,5 @@
--- start query 64 in stream 0 using template query64.tpl;
+
+use tpcds_parquet;
 with cs_ui as
  (select cs_item_sk
         ,sum(cs_ext_list_price) as sale,sum(cr_refunded_cash+cr_reversed_charge+cr_store_credit) as refund
@@ -69,10 +70,7 @@ cross_sales as
          ss_promo_sk = p_promo_sk and
          hd1.hd_income_band_sk = ib1.ib_income_band_sk and
          hd2.hd_income_band_sk = ib2.ib_income_band_sk and
-         cd1.cd_marital_status <> cd2.cd_marital_status -- and
-         -- i_color in ('lavender','metallic','beige','gainsboro','chartreuse','lemon') and
-         -- i_current_price between 6 and 6 + 10 and
-         -- i_current_price between 6 + 1 and 6 + 15
+         cd1.cd_marital_status <> cd2.cd_marital_status
 group by i_product_name
        ,i_item_sk
        ,s_store_name
@@ -122,5 +120,4 @@ order by cs1.product_name
        ,cs2.cnt
 limit 100;
 
--- end query 64 in stream 0 using template query64.tpl;
 

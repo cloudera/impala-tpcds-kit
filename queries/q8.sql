@@ -1,4 +1,4 @@
--- start query 8 in stream 0 using template query8.tpl
+
 select  s_store_name
       ,sum(ss_net_profit)
  from store_sales
@@ -56,4 +56,4 @@ select  s_store_name
  group by s_store_name
  order by s_store_name
 limit 100;
--- end query 8 in stream 0 using template query8.tpl
+

@@ -1,5 +1,5 @@
--- start query 72 in stream 0 using template query72.tpl
--- select * from (select i_item_desc
+
+use tpcds_parquet;
 select i_item_desc
       ,w_warehouse_name
       ,d1.d_week_seq
@@ -7,7 +7,6 @@ select i_item_desc
       ,count(case when p_promo_sk is not null then 1 else 0 end) promo
       ,count(*) total_cnt
 from catalog_sales
--- join (select * from inventory, warehouse where w_warehouse_sk=inv_warehouse_sk) iw on (cs_item_sk = inv_item_sk)
 join inventory on (cs_item_sk = inv_item_sk)
 join warehouse on (w_warehouse_sk=inv_warehouse_sk)
 join item on (i_item_sk = cs_item_sk)
@@ -17,7 +16,7 @@ join date_dim d1 on (cs_sold_date_sk = d1.d_date_sk)
 join date_dim d2 on (inv_date_sk = d2.d_date_sk)
 join date_dim d3 on (cs_ship_date_sk = d3.d_date_sk)
 left outer join promotion on (cs_promo_sk=p_promo_sk)
-left outer join [shuffle] catalog_returns on (cr_item_sk = cs_item_sk and cr_order_number = cs_order_number)
+left outer join catalog_returns on (cr_item_sk = cs_item_sk and cr_order_number = cs_order_number)
 where d1.d_week_seq = d2.d_week_seq
   and cs_sold_date_sk between 2452276 and 2452640
   and inv_quantity_on_hand < cs_quantity
@@ -28,5 +27,5 @@ where d1.d_week_seq = d2.d_week_seq
 group by i_item_desc,w_warehouse_name,d1.d_week_seq
 order by total_cnt desc, i_item_desc, w_warehouse_name, d_week_seq
 limit 100;
--- end query 72 in stream 0 using template query72.tpl
+
 

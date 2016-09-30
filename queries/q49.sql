@@ -1,4 +1,4 @@
--- start query 49 in stream 0 using template query49.tpl
+
 select  
  'web' as channel
  ,web.item
@@ -126,4 +126,4 @@ select
  )
  order by 1,4,5
  limit 100;
--- end query 49 in stream 0 using template query49.tpl
+

@@ -1,5 +1,5 @@
--- start query 71 in stream 0 using template query71.tpl
--- work FIXED
+
+
 select i_brand_id brand_id, i_brand brand,t_hour,t_minute,
         sum(ext_price) ext_price
  from item, (select ws_ext_sales_price as ext_price,
@@ -41,5 +41,5 @@ select i_brand_id brand_id, i_brand brand,t_hour,t_minute,
  order by ext_price desc, i_brand_id
  limit 100;
 
--- end query 71 in stream 0 using template query71.tpl
+
 

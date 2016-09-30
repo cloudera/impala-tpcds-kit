@@ -1,4 +1,4 @@
--- start query 35 in stream 0 using template query35.tpl
+
 with table1 as (
 select ws_bill_customer_sk sk
 from 
@@ -61,4 +61,4 @@ select
           cd_dep_employed_count,
           cd_dep_college_count
 limit 100;
--- end query 35 in stream 0 using template query35.tpl
+

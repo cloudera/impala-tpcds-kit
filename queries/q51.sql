@@ -1,4 +1,4 @@
--- start query 51 in stream 0 using template query51.tpl
+
 WITH web_tv as (
 select
   ws_item_sk item_sk, d_date, sum(ws_sales_price) sumws,
@@ -61,4 +61,4 @@ from (
 where web_cumulative > store_cumulative
 order by item_sk, d_date
 limit 100;
--- end query 51 in stream 0 using template query51.tpl
+

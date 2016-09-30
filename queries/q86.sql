@@ -1,4 +1,4 @@
--- start query 86 in stream 0 using template query86.tpl
+
  with results as
 ( select sum(ws_net_paid) as total_sum, i_category, i_class, 0 as g_category, 0 as g_class 
  from
@@ -32,4 +32,4 @@ select
    case when lochierarchy = 0 then i_category end,
    rank_within_parent 
  limit 100;
--- end query 86 in stream 0 using template query86.tpl
+
