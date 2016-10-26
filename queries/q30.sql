@@ -1,4 +1,3 @@
-
 with customer_total_return as
  (select wr_returning_customer_sk as ctr_customer_sk
         ,ca_state as ctr_state, wr_returned_date_sk as c_last_review_datexx,
@@ -28,4 +27,3 @@ with customer_total_return as
                   ,c_birth_day,c_birth_month,c_birth_year,c_birth_country,c_login,c_email_address
                   ,C_Last_Review_Date,ctr_total_return
 limit 100;
-
