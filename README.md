@@ -38,8 +38,10 @@ These scripts also assume that your $HOME directory is the same path on all Data
 
 * `sudo yum -y install gcc make flex bison byacc git`
 * `cd $HOME` (use your `$HOME` directory as it's hard coded in some scripts for now)
-* `git clone https://github.com/grahn/tpcds-kit.git`
-* `cd tpcds-kit/tools`
+* `git clone https://github.com/gregrahn/tpcds-kit.git`
+* `cd tpcds-kit`
+* `git checkout --quiet eff5de2`
+* `cd tools`
 * `make -f Makefile.suite`
 
 ### Clone the Impala TPC-DS tools repo & Configure the HDFS directories
