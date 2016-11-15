@@ -1,7 +1,6 @@
--- start query 30 in stream 0 using template query30.tpl
 with customer_total_return as
  (select wr_returning_customer_sk as ctr_customer_sk
-        ,ca_state as ctr_state, 
+        ,ca_state as ctr_state, wr_returned_date_sk as c_last_review_datexx,
  	sum(wr_return_amt) as ctr_total_return
  from web_returns
      ,date_dim
@@ -11,7 +10,7 @@ with customer_total_return as
    and d_year =2002
    and wr_returning_addr_sk = ca_address_sk 
  group by wr_returning_customer_sk
-         ,ca_state)
+         ,ca_state,c_last_review_datexx)
   select  c_customer_id,c_salutation,c_first_name,c_last_name,c_preferred_cust_flag
        ,c_birth_day,c_birth_month,c_birth_year,c_birth_country,c_login,c_email_address
        ,c_last_review_date,ctr_total_return
@@ -26,6 +25,5 @@ with customer_total_return as
        and ctr1.ctr_customer_sk = c_customer_sk
  order by c_customer_id,c_salutation,c_first_name,c_last_name,c_preferred_cust_flag
                   ,c_birth_day,c_birth_month,c_birth_year,c_birth_country,c_login,c_email_address
-                  ,c_last_review_date,ctr_total_return
+                  ,C_Last_Review_Date,ctr_total_return
 limit 100;
--- end query 30 in stream 0 using template query30.tpl

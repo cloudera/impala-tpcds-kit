@@ -1,4 +1,5 @@
--- start query 67 in stream 0 using template query67.tpl
+
+use tpcds_parquet;
 with results as
 (     select i_category ,i_class ,i_brand ,i_product_name ,d_year ,d_qoy ,d_moy ,s_store_id
                   ,sum(coalesce(ss_sales_price*ss_quantity,0)) sumsales
@@ -70,4 +71,4 @@ order by i_category
         ,rk
 limit 100;
 
--- end query 67 in stream 0 using template query67.tpl
+

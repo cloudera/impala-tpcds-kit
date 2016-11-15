@@ -1,4 +1,4 @@
--- start query 56 in stream 0 using template query56.tpl
+
 with ss as (
  select i_item_id,sum(ss_ext_sales_price) total_sales
  from
@@ -67,4 +67,4 @@ where i_color in ('plum','peach','sandy'))
  group by i_item_id
  order by total_sales
  limit 100;
--- end query 56 in stream 0 using template query56.tpl
+

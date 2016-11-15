@@ -1,4 +1,4 @@
--- start query 34 in stream 0 using template query34.tpl
+
 select
   c_last_name,
   c_first_name,
@@ -43,4 +43,4 @@ order by
   c_salutation,
   c_preferred_cust_flag desc
 ;
--- end query 34 in stream 0 using template query34.tpl
+

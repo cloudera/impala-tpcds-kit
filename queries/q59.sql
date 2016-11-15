@@ -1,4 +1,4 @@
--- start query 59 in stream 0 using template query59.tpl
+
 with
   wss as
   (select
@@ -80,4 +80,4 @@ order by
   s_store_id1,
   d_week_seq1
 limit 100;
--- end query 59 in stream 0 using template query59.tpl
+

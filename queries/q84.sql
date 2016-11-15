@@ -1,4 +1,4 @@
--- start query 84 in stream 0 using template query84.tpl
+
 select  c_customer_id as customer_id
         , concat(c_last_name, ',' , c_first_name) as customername
  from customer
@@ -17,4 +17,4 @@ select  c_customer_id as customer_id
    and sr_cdemo_sk = cd_demo_sk
  order by c_customer_id
  limit 100; 
--- end query 84 in stream 0 using template query84.tpl
+

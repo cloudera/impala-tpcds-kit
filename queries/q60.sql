@@ -1,4 +1,4 @@
--- start query 60 in stream 0 using template query60.tpl
+
 with ss as (
  select
           i_item_id,sum(ss_ext_sales_price) total_sales
@@ -75,4 +75,4 @@ where i_category in ('Music'))
       ,total_sales
 limit 100;
 
--- end query 60 in stream 0 using template query60.tpl
+

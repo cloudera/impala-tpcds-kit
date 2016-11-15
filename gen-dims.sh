@@ -1,7 +1,9 @@
 #!/bin/bash
-source tpcds-env.sh
+source ./tpcds-env.sh
 
-for t in date_dim time_dim customer customer_address customer_demographics household_demographics item promotion store
+echo ${HOME}
+
+for t in $dims
 do
   echo "Generating table $t"
   ${TPCDS_ROOT}/tools/dsdgen \
@@ -9,9 +11,12 @@ do
     -SCALE ${TPCDS_SCALE_FACTOR} \
     -DISTRIBUTIONS ${TPCDS_ROOT}/tools/tpcds.idx \
     -TERMINATE N \
-    -FILTER Y \
-    -QUIET Y | hdfs dfs -put - ${FLATFILE_HDFS_ROOT}/${t}/${t}.dat &
+    -_FILTER Y \
+    -QUIET Y \
+    -DIR ${HOME} \
+    -FORCE Y
+
+    hadoop fs -put ${HOME}/${t}.dat ${FLATFILE_HDFS_ROOT}/${t}/${t}.dat &
 done
 wait
 
-hdfs dfs -ls -R ${FLATFILE_HDFS_ROOT}/*/*.dat

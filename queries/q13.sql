@@ -1,4 +1,4 @@
--- start query 13 in stream 0 using template query13.tpl
+
 select avg(ss_quantity)
        ,avg(ss_ext_sales_price)
        ,avg(ss_ext_wholesale_cost)
@@ -52,4 +52,4 @@ select avg(ss_quantity)
   and ss_net_profit between 50 and 250  
      ))
 ;
--- end query 13 in stream 0 using template query13.tpl
+

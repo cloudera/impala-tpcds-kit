@@ -1,4 +1,4 @@
--- start query 28 in stream 0 using template query28.tpl
+
 select  *
 from (select avg(ss_list_price) B1_LP
             ,count(ss_list_price) B1_CNT
@@ -50,4 +50,4 @@ from (select avg(ss_list_price) B1_LP
           or ss_wholesale_cost between 16 and 16+20)) B6
 limit 100;
 
--- end query 28 in stream 0 using template query28.tpl
+

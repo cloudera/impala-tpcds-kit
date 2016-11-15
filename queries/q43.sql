@@ -1,4 +1,4 @@
--- start query 43 in stream 0 using template query43.tpl
+
 select
   s_store_name,
   s_store_id,
@@ -33,4 +33,4 @@ order by
   fri_sales,
   sat_sales
 limit 100;
--- end query 43 in stream 0 using template query43.tpl
+

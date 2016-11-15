@@ -1,4 +1,4 @@
--- start query 87 in stream 0 using template query87.tpl
+
 select count(*)
            from
            (select
@@ -60,4 +60,3 @@ select count(*)
          where
            (q18.c4 = q18.c3)
 ;
--- end query 87 in stream 0 using template query87.tpl

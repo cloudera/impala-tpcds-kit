@@ -1,4 +1,4 @@
--- start query 40 in stream 0 using template query40.tpl
+
 select
    w_state
   ,i_item_id
@@ -26,4 +26,4 @@ select
  order by w_state,i_item_id
  limit 100;
 
--- end query 40 in stream 0 using template query40.tpl
+

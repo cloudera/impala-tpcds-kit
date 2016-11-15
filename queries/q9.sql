@@ -1,4 +1,4 @@
--- start query 9 in stream 0 using template query9.tpl
+
 select bucket1, bucket2, bucket3, bucket4, bucket5
 from
 (select case when count1 > 62316685 then then1 else else1 end bucket1
@@ -39,4 +39,4 @@ CROSS JOIN
 reason
 where r_reason_sk = 1
 ;
--- end query 9 in stream 0 using template query9.tpl
+

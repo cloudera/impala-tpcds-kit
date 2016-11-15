@@ -1,4 +1,4 @@
--- start query 20 in stream 0 using template query20.tpl
+
 select  i_item_desc 
        ,i_category 
        ,i_class 
@@ -26,4 +26,4 @@ select  i_item_desc
          ,i_item_desc
          ,revenueratio
 limit 100;
--- end query 20 in stream 0 using template query20.tpl
+

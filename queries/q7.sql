@@ -1,4 +1,4 @@
--- start query 7 in stream 0 using template query7.tpl
+
 select
   i_item_id,
   avg(ss_quantity) agg1,
@@ -28,4 +28,4 @@ group by
 order by
   i_item_id
 limit 100;
--- end query 7 in stream 0 using template query7.tpl
+

@@ -1,4 +1,4 @@
--- start query 15 in stream 0 using template query15.tpl
+
 select  ca_zip
        ,sum(cs_sales_price)
  from catalog_sales
@@ -19,4 +19,4 @@ select  ca_zip
  group by ca_zip
  order by ca_zip
  limit 100;
--- end query 15 in stream 0 using template query15.tpl
+

@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query1.tpl
+
 with customer_total_return as
 (select sr_customer_sk as ctr_customer_sk
   ,sr_store_sk as ctr_store_sk
@@ -22,4 +22,4 @@ and s_state = 'LA'
 and ctr1.ctr_customer_sk = c_customer_sk
 order by c_customer_id
 limit 100;
--- end query 1 in stream 0 using template query1.tpl
+

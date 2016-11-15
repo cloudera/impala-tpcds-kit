@@ -1,4 +1,4 @@
--- start query 52 in stream 0 using template query52.tpl
+
 select
   dt.d_year,
   item.i_brand_id brand_id,
@@ -24,4 +24,4 @@ order by
   ext_price desc,
   brand_id
 limit 100;
--- end query 52 in stream 0 using template query52.tpl
+

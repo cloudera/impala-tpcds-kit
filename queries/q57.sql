@@ -1,4 +1,4 @@
--- start query 57 in stream 0 using template query57.tpl
+
 with v1 as(
  select i_category, i_brand,
         cc_name,
@@ -45,4 +45,4 @@ with v1 as(
         case when avg_monthly_sales > 0 then abs(sum_sales - avg_monthly_sales) / avg_monthly_sales else null end > 0.1
  order by sum_sales - avg_monthly_sales, d_moy
  limit 100;
--- end query 57 in stream 0 using template query57.tpl
+

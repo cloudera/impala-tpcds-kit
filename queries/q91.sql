@@ -1,4 +1,4 @@
--- start query 91 in stream 0 using template query91.tpl
+
 select
         cc_call_center_id Call_Center,
         cc_name Call_Center_Name,
@@ -30,4 +30,3 @@ group by cc_call_center_id,cc_name,cc_manager,cd_marital_status,cd_education_sta
 order by sum(cr_net_loss) desc
 limit 100;
 
--- end query 91 in stream 0 using template query91.tpl

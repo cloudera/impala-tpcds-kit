@@ -1,4 +1,4 @@
--- start query 38 in stream 0 using template query38.tpl
+
 select
 count(*)
             from
@@ -61,4 +61,4 @@ count(*)
             where
               ((q19.c4 - case when (q19.c3 >= 0) then q19.c3 else -(q19.c3) end) >= 2)
 ;
--- end query 38 in stream 0 using template query38.tpl
+

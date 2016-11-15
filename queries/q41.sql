@@ -1,4 +1,4 @@
--- start query 41 in stream 0 using template query41.tpl
+
 select  distinct(i_product_name)
  from item i1
 JOIN 
@@ -55,4 +55,4 @@ where i1.i_manufact_id between  835 and 835+40
 and i2.item_cnt > 0
  order by i_product_name
  limit 100;
--- end query 41 in stream 0 using template query41.tpl
+

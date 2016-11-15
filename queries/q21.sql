@@ -1,4 +1,4 @@
--- start query 21 in stream 0 using template query21.tpl
+
 select  *
  from(select w_warehouse_name
             ,i_item_id
@@ -27,4 +27,4 @@ select  *
  order by w_warehouse_name
          ,i_item_id
  limit 100 ;
--- end query 21 in stream 0 using template query21.tpl
+

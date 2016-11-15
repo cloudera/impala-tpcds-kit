@@ -7,21 +7,10 @@
 
 The following tables are currently used:
 
-Dimension Tables:
+Dimension Tables: 17
 
-* DATE_DIM
-* TIME_DIM
-* CUSTOMER
-* CUSTOMER_ADDRESS
-* CUSTOMER_DEMOGRAPHICS
-* HOUSEHOLD_DEMOGRAPHICS
-* ITEM
-* PROMOTION
-* STORE
+Fact Tables: 7
 
-Fact Tables:
-
-* STORE_SALES
 
 ## Environment Setup Steps
 
@@ -64,6 +53,7 @@ Data is landed directly in HDFS so there is no requirement for any local storage
 * `hdfs-mkdirs.sh` - Make HDFS directories for each table.
 * `gen-dims.sh` - Generate dimension flat files (runs on one DataNode only).
 * `run-gen-facts.sh` - Runs `gen-facts.sh` on each DataNode via ssh to generate STORE_SALES flat files.
+* `run-upload-facts.sh` - Runs `upload-facts.sh` on each DataNode via ssh to upload STORE_SALES flat files.
 
 ## Data Loading
 
@@ -75,7 +65,4 @@ Data is landed directly in HDFS so there is no requirement for any local storage
 
 ## Queries
 
-`impala-tpcds-kit/queries` contains queries execute on Impala (v2.3+). Note that the
-queries are not qualified with a database name. In order to run them, the impala-shell
-needs to be run with the -d paramater. Alternatively, one can also issue a use db_name
-before running each individual query.
+sh run_query.sh

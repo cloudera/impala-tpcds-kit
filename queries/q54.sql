@@ -1,4 +1,3 @@
--- start query 54 in stream 0 using template query54.tpl
 with my_customers as (
  select distinct c_customer_sk
         , c_current_addr_sk
@@ -57,6 +56,5 @@ with my_customers as (
  group by segment
  order by segment, num_customers
  limit 100;
--- ) where rownum <= 100;
--- end query 54 in stream 0 using template query54.tpl
+
 

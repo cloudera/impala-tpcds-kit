@@ -1,5 +1,5 @@
--- start query 18 in stream 0 using template query18.tpl
--- TPC-DS template is wrong as it is starting with avg
+
+
  with results as
  (select i_item_id,
         ca_country,
@@ -62,4 +62,4 @@
  ) foo
  order by ca_country, ca_state, ca_county, i_item_id
 limit 100;
--- end query 18 in stream 0 using template query18.tpl
+

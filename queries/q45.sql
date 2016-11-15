@@ -1,4 +1,4 @@
--- start query 45 in stream 0 using template query45.tpl
+
 select t1.ca_zip, t1.ca_city, sum(t1.ws_sales_price) from (
 (
 select  ca_zip, ca_city, ws_sales_price
@@ -33,4 +33,4 @@ where (ws_bill_customer_sk = c_customer_sk
  group by ca_zip, ca_city 
  order by ca_zip, ca_city 
 ;
--- end query 45 in stream 0 using template query45.tpl
+

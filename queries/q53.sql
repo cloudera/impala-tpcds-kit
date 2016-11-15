@@ -1,4 +1,4 @@
--- start query 53 in stream 0 using template query53.tpl
+
 select
   *
 from
@@ -34,4 +34,4 @@ order by
   sum_sales,
   i_manufact_id
 limit 100;
--- end query 53 in stream 0 using template query53.tpl
+

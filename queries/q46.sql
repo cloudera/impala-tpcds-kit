@@ -1,4 +1,4 @@
--- start query 46 in stream 0 using template query46.tpl
+
 select
   c_last_name,
   c_first_name,
@@ -77,4 +77,4 @@ order by
   bought_city,
   ss_ticket_number
 limit 100;
--- end query 46 in stream 0 using template query46.tpl
+

@@ -1,4 +1,4 @@
--- start query 31 in stream 0 using template query31.tpl
+
 with ss as
  (select ca_county,d_qoy, d_year,sum(ss_ext_sales_price) as store_sales
  from store_sales,date_dim,customer_address
@@ -50,4 +50,4 @@ with ss as
     and case when ws2.web_sales > 0 then ws3.web_sales/ws2.web_sales else null end
        > case when ss2.store_sales > 0 then ss3.store_sales/ss2.store_sales else null end
  order by web_q1_q2_increase;
--- end query 31 in stream 0 using template query31.tpl
+

@@ -1,4 +1,4 @@
--- start query 17 in stream 0 using template query17.tpl
+
 select  i_item_id
        ,i_item_desc
        ,s_state
@@ -43,4 +43,4 @@ select  i_item_id
          ,i_item_desc
          ,s_state
  limit 100;
--- end query 17 in stream 0 using template query17.tpl
+

@@ -1,4 +1,3 @@
--- start query 98 in stream 0 using template query98.tpl
 select
   i_item_desc,
   i_category,
@@ -28,5 +27,4 @@ order by
   i_item_id,
   i_item_desc,
   revenueratio;
---limit 1000; -- added limit
--- end query 98 in stream 0 using template query98.tpl
+

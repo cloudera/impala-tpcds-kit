@@ -1,4 +1,4 @@
--- start query 33 in stream 0 using template query33.tpl
+
 with ss as (
  select
           i_manufact_id,sum(ss_ext_sales_price) total_sales
@@ -74,4 +74,4 @@ where i_category in ('Books'))
  group by i_manufact_id
  order by total_sales
  limit 100;
--- end query 33 in stream 0 using template query33.tpl
+

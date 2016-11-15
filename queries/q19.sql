@@ -1,4 +1,4 @@
--- start query 19 in stream 0 using template query19.tpl
+
 select
   i_brand_id brand_id,
   i_brand brand,
@@ -35,4 +35,4 @@ order by
   i_manufact_id,
   i_manufact
 limit 100;
--- end query 19 in stream 0 using template query19.tpl
+

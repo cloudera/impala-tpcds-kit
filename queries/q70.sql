@@ -1,4 +1,4 @@
--- start query 70 in stream 0 using template query70.tpl
+
  with results as
 ( select
     sum(ss_net_profit) as total_sum ,s_state ,s_county, 0 as gstate, 0 as g_county
@@ -44,4 +44,4 @@
    lochierarchy desc
   ,case when lochierarchy = 0 then s_state end
   ,rank_within_parent ;
--- end query 70 in stream 0 using template query70.tpl
+

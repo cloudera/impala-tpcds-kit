@@ -1,4 +1,4 @@
--- start query 36 in stream 0 using template query36.tpl
+
  with results as
  (select 
     sum(ss_net_profit) as ss_net_profit, sum(ss_ext_sales_price) as ss_ext_sales_price,
@@ -40,4 +40,4 @@
   ,rank_within_parent
   limit 100;
 
--- end query 36 in stream 0 using template query36.tpl
+

@@ -1,4 +1,4 @@
--- start query 42 in stream 0 using template query42.tpl
+
 select
   dt.d_year,
   item.i_category_id,
@@ -25,4 +25,4 @@ order by
   item.i_category_id,
   item.i_category
 limit 100;
--- end query 42 in stream 0 using template query42.tpl
+
