@@ -21,7 +21,7 @@ def get_mem_limit():
   """Get the memory limit of an Impala daemon"""
   content = urllib.urlopen("http://{0}:25000/varz?raw".format(IMPALAD)).read()
   # memz has the mem limit in bytes
-  mem_limit_gb = float(re.findall('--mem_limit=(\d+)', content)[0])/(1024**3)
+  mem_limit_gb = float(re.findall('--mem_limit=(\d+)', content)[0])/(1024*3)
   return mem_limit_gb
 
 def get_num_backends():
