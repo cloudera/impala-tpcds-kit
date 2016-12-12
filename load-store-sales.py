@@ -9,25 +9,42 @@ import os
 import socket
 import re
 import urllib
+import json
 
 from math import ceil
 from subprocess import call
+from distutils.version import StrictVersion
 
 TPCDS_DB = os.getenv('TPCDS_DBNAME')
 IMPALAD = socket.getfqdn()
 LOAD_FILE = "load_store_sales_tmp.sql"
 
+def get_cdh_version():
+  """Get version of CDH impala is using"""
+  content = urllib.urlopen("http://{0}:25000".format(IMPALAD)).read()
+  return re.findall('impalad version [\d\.\-]+cdh([\d\.]+)', content)[0]
+
 def get_mem_limit():
   """Get the memory limit of an Impala daemon"""
-  content = urllib.urlopen("http://{0}:25000/varz?raw".format(IMPALAD)).read()
-  # memz has the mem limit in bytes
-  mem_limit_gb = float(re.findall('--mem_limit=(\d+)', content)[0])/(1024**3)
+  if StrictVersion(get_cdh_version()) < StrictVersion('5.9.0'):
+    content = urllib.urlopen("http://{0}:25000/varz?raw".format(IMPALAD)).read()
+    # memz has the mem limit in bytes
+    mem_limit_gb = float(re.findall('--mem_limit=(\d+)', content)[0])/(1024**3)
+  else:
+    content = urllib.urlopen("http://{0}:25000/varz?json".format(IMPALAD)).read()
+    mem_limit = next((x for x in json.loads(content)['flags'] if x['name'] == 'mem_limit'), None)['current']
+    mem_limit_gb = float(mem_limit)/(1024**3)
   return mem_limit_gb
 
 def get_num_backends():
   """Get the number of Impala daemons in the cluster"""
-  content = urllib.urlopen("http://{0}:25000/backends?raw".format(IMPALAD)).read()
-  return len([b for b in content.strip().split('\n') if '22000' in b])
+  if StrictVersion(get_cdh_version()) < StrictVersion('5.9.0'):
+    content = urllib.urlopen("http://{0}:25000/backends?raw".format(IMPALAD)).read()
+    num_backends = len([b for b in content.strip().split('\n') if '22000' in b])
+  else:
+    content = urllib.urlopen("http://{0}:25000/backends?json".format(IMPALAD)).read()
+    num_backends = len(json.loads(content)['backends'])
+  return num_backends
 
 def generate_queries(ss_sold_dates):
   num_part_per_query = int(ceil(0.5 * get_mem_limit())) * get_num_backends()
