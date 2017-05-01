@@ -22,7 +22,7 @@ from
     and store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk
     and date_dim.d_dom between 1 and 2
     and (household_demographics.hd_buy_potential = '>10000'
-      or household_demographics.hd_buy_potential = 'unknown')
+      or household_demographics.hd_buy_potential = 'Unknown')
     and household_demographics.hd_vehicle_count > 0
     and case when household_demographics.hd_vehicle_count > 0 then household_demographics.hd_dep_count / household_demographics.hd_vehicle_count else null end > 1
     and date_dim.d_year in (1998, 1998 + 1, 1998 + 2)
