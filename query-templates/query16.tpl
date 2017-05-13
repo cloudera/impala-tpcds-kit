@@ -54,8 +54,8 @@ from
   ,customer_address
   ,call_center
 where
-    cast(d_date as timestamp) between cast('[YEAR]-[MONTH]-01' as timestamp) and 
-           (cast('[YEAR]-[MONTH]-01' as timestamp) + interval 60 days)
+    cast(d_date as timestamp) between cast('[YEAR]-0[MONTH]-01' as timestamp) and 
+           (cast('[YEAR]-0[MONTH]-01' as timestamp) + interval 60 days)
 and cs1.cs_ship_date_sk = d_date_sk
 and cs1.cs_ship_addr_sk = ca_address_sk
 and ca_state = '[STATE]'
