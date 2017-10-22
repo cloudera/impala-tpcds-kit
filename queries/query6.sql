@@ -20,7 +20,7 @@ select  a.ca_state state, count(*) cnt
  	     where j.i_category = i.i_category)
  group by a.ca_state
  having count(*) >= 10
- order by cnt 
+ order by cnt, a.ca_state 
  limit 100;
 
 -- end query 1 in stream 0 using template query6.tpl
