@@ -38,7 +38,7 @@ with ss_items as
                   from date_dim
                   where d_week_seq =(select d_week_seq 
                                      from date_dim
-                                     where d_date = '1998-02-19') limit 1)
+                                     where d_date = '1998-02-19' limit 1))
   and ws_sold_date_sk   = d_date_sk
  group by i_item_id)
   select  ss_items.item_id
