@@ -14,7 +14,11 @@ from math import ceil
 from subprocess import call
 
 TPCDS_DB = os.getenv('TPCDS_DBNAME')
-IMPALAD = socket.getfqdn()
+IMPALA_SHELL_OPTS = os.getenv('IMPALA_SHELL_OPTS')
+if IMPALA_SHELL_OPTS == None: IMPALA_SHELL_OPTS = ""
+REQUEST_POOL = os.getenv('REQUEST_POOL')
+IMPALAD = os.getenv('IMPALAD')
+if IMPALAD == None: IMPALAD = socket.getfqdn()
 LOAD_FILE = "load_store_sales_tmp.sql"
 
 def get_mem_limit():
@@ -75,9 +79,10 @@ def _main():
   queries = generate_queries(ss_sold_dates)
   with open(LOAD_FILE, 'w') as f:
     f.write('USE {0};\n'.format(TPCDS_DB))
+    f.write('set REQUEST_POOL={0};\n'.format(REQUEST_POOL))
     f.write(';\n'.join(queries))
   try:
-    os.system('impala-shell -f {0}'.format(LOAD_FILE))
+    os.system('impala-shell {0} -f {1}'.format(IMPALA_SHELL_OPTS, LOAD_FILE))
   except Exception, e:
     print "Data Loading failed: %s" % e
   finally:
@@ -85,5 +90,6 @@ def _main():
 
 if __name__ == "__main__":
   assert TPCDS_DB, "The TPCDS_DBNAME environment variable is required"
+  assert REQUEST_POOL, "The REQUEST_POOL environment variable is required"
   assert get_mem_limit() > 2.0, "The impalad's memory limit is too low"
   _main()

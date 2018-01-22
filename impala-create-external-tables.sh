@@ -1,9 +1,9 @@
 #!/bin/bash
 source tpcds-env.sh
 
-impala-shell -q "create database $TPCDS_DBNAME;"
+impala-shell $IMPALA_SHELL_OPTS -q "create database $TPCDS_DBNAME;"
 
-impala-shell -d $TPCDS_DBNAME <<EOF
+impala-shell $IMPALA_SHELL_OPTS -d $TPCDS_DBNAME <<EOF
 create external table et_store_sales
 (
   ss_sold_date_sk           bigint,
