@@ -21,7 +21,27 @@ def get_mem_limit():
   """Get the memory limit of an Impala daemon"""
   content = urllib.urlopen("http://{0}:25000/varz?raw".format(IMPALAD)).read()
   # memz has the mem limit in bytes
-  mem_limit_gb = float(re.findall('--mem_limit=(\d+)', content)[0])/(1024**3)
+  mem_str = re.findall('--mem_limit=(\d+)([kKmMgG%])', content)
+  if mem_str:
+    size = float(mem_str[0][0])
+    size_type = mem_str[0][1]
+    if size_type in ['k', 'K']:
+      mem_limit_gb = size / (1024**2)
+    elif size_type in ['m', 'M']:
+      mem_limit_gb = size / 1024
+    elif size_type in ['g', 'G']:
+      mem_limit_gb = size
+    elif size_type == '%':
+      # TODO: Get the sys mem across all platform properly
+      print "WARN: mem_limit specified with %, can't check automatically now."
+      print "Please make sure the memory used by Impala is enough. 2GB at least."
+      mem_limit_gb = 3.0
+  else:
+    mem_str = re.findall('--mem_limit=(\d+)', content)
+    if not mem_str:
+      print "WARN: Can't detect mem_limit cofiguration."
+      sys.exit()
+    mem_limit_gb = float(mem_str[0])/(1024**3)
   return mem_limit_gb
 
 def get_num_backends():
