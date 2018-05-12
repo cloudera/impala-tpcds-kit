@@ -1,1 +1,0 @@
-export NODENUM=1

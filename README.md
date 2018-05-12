@@ -1,81 +1,48 @@
-# A TPC-DS like benchmark for Cloudera Impala
+# A TPC-DS like benchmark for Apache Impala
 
+The official and latest TPC-DS tools and specification can be found at
+[tpc.org](http://www.tpc.org/tpc_documents_current_versions/current_specifications.asp)
 
-**NOTICE: This repo contains modifications to the official TPC-DS specification so any results from this are not comparable to officially audited results.**
+## Step 0: Environment Setup
 
-## Schema Information
+Install Java JDK and Maven if need be:
 
-The following tables are currently used:
+```
+sudo yum -y install java-1.8.0-openjdk-devel maven
+```
 
-Dimension Tables:
+Install the necessary development tools:
 
-* DATE_DIM
-* TIME_DIM
-* CUSTOMER
-* CUSTOMER_ADDRESS
-* CUSTOMER_DEMOGRAPHICS
-* HOUSEHOLD_DEMOGRAPHICS
-* ITEM
-* PROMOTION
-* STORE
+```
+sudo yum -y install git gcc make flex bison byacc curl unzip patch
+```
 
-Fact Tables:
+## Step 1: Generate Data
 
-* STORE_SALES
+Data generation is done via a MapReduce wrapper around TPC-DS `dbgen`.  See `tpcds-gen/README.md` for more details on the commands to generate the flat files.
 
-## Environment Setup Steps
+## Step 2: Load Data
 
-These steps setup your environment to perform a distributed data generation for the given
-scale factor.
+Adjust the source/text and target/Parquet schema names and flat file paths in the sql files found in the `scripts/` directory.  See the comments at the top of each.
 
-### Prerequisites
+Create external text file tables:
 
-The scripts assume that you have passwordless SSH from the master node (where you will clone the repos to) to every DataNode that is in your cluster.
+```
+impala-shell -f impala-external.sql
+```
 
-These scripts also assume that your $HOME directory is the same path on all DataNodes.
+Create Parquet tables:
 
-### Download and build the modified TPC-DS tools
+```
+impala-shell -f impala-parquet.sql
+```
 
-* `sudo yum -y install gcc make flex bison byacc git`
-* `cd $HOME` (use your `$HOME` directory as it's hard coded in some scripts for now)
-* `git clone https://github.com/gregrahn/tpcds-kit.git`
-* `cd tpcds-kit`
-* `git checkout --quiet eff5de2`
-* `cd tools`
-* `make -f Makefile.suite`
+Load Parquet tables and compute stats:
 
-### Clone the Impala TPC-DS tools repo & Configure the HDFS directories
+```
+impala-shell -f impala-insert.sql
+```
 
-* `cd $HOME` (use your `$HOME` directory as it's hard coded in some scripts for now)
-* clone this repo `git clone https://github.com/cloudera/impala-tpcds-kit`
-* `cd impala-tpcds-kit`
-* Edit `tpcds-env.sh` and modify as needed.  The defaults assume you have a `/user/$USER` directory in HDFS.  If you don't, run these commands:
-  * `sudo -u hdfs hdfs dfs -mkdir /user/$USER`
-  * `sudo -u hdfs hdfs dfs -chown $USER /user/$USER`
-  * `sudo -u hdfs hdfs dfs -chmod 777 /user/$USER`
-* Edit `dn.txt` and put one DataNode hostname per line - no blank lines.
-* Run `push-bits.sh` which will scp `tpcds-kit` and `impala-tpcds-kit` to each DataNode listed in `dn.txt`.
-* Run `set-nodenum.sh`.  This will create `impala-tpcds-kit/nodenum.sh` on every DataNode and set the value accordingly.  This is used to determine what portion of the distributed data generation is done on each node.
+## Step 3: Run Queries
 
-## Preparation and Data Generation
-
-Data is landed directly in HDFS so there is no requirement for any local storage.
-
-* `hdfs-mkdirs.sh` - Make HDFS directories for each table.
-* `gen-dims.sh` - Generate dimension flat files (runs on one DataNode only).
-* `run-gen-facts.sh` - Runs `gen-facts.sh` on each DataNode via ssh to generate STORE_SALES flat files.
-
-## Data Loading
-
-### Impala Steps
-* `impala-create-external-tables.sh` - Creates a Hive database and the external tables pointing to flat files.
-* `impala-load-dims.sh` - Load dimension tables (no format specified, modify as necessary, but not required).
-* `impala-load-store_sales.sh` - Load STORE_SALES table which uses dynamic partitioning, one partition per calendar day.
-* `impala-compute-stats.sh` - Gather table and column statistics on all tables.
-
-## Queries
-
-`impala-tpcds-kit/queries` contains queries execute on Impala (v2.3+). Note that the
-queries are not qualified with a database name. In order to run them, the impala-shell
-needs to be run with the -d paramater. Alternatively, one can also issue a use db_name
-before running each individual query.
+Sample queries from the 10TB scale factor can be found in the `queries/` directory.  The `query-templates/` directory contains the Apache Impala TPC-DS query templates which can be used with `dsqgen` (found in the official TPC-DS tools) to generate queries for other scale factors or to generate more queries with different substitution variables.
