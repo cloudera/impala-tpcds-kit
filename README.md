@@ -19,7 +19,7 @@ sudo yum -y install git gcc make flex bison byacc curl unzip patch
 
 ## Step 1: Generate Data
 
-Data generation is done via a MapReduce wrapper around TPC-DS `dbgen`.  See `tpcds-gen/README.md` for more details on the commands to generate the flat files.
+Data generation is done via a MapReduce wrapper around TPC-DS `dsdgen`.  See `tpcds-gen/README.md` for more details on the commands to generate the flat files.
 
 ## Step 2: Load Data
 
