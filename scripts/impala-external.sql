@@ -339,7 +339,7 @@ create external table reason (
 )
 row format delimited fields terminated by '|'
 stored as textfile
-location '/tmp/tpc-ds/sf10000/web_sales'
+location '/tmp/tpc-ds/sf10000/reason'
 tblproperties ('serialization.null.format'='')
 ;
 
@@ -353,7 +353,7 @@ create external table ship_mode (
 )
 row format delimited fields terminated by '|'
 stored as textfile
-location '/tmp/tpc-ds/sf10000/reason'
+location '/tmp/tpc-ds/sf10000/ship_mode'
 tblproperties ('serialization.null.format'='')
 ;
 
