@@ -3,7 +3,7 @@
 -- currently (tpcds_10000_parquet)
 --
 
-create schema tpcds_10000_parquet;
+create schema if not exists tpcds_10000_parquet;
 use tpcds_10000_parquet;
 
 --
