@@ -3,7 +3,7 @@
 -- * schema name (currently tpcds_10000_text)
 -- * location path (currently /tmp/tpc-ds/sf10000)
 
-create schema tpcds_10000_text;
+create schema if not exists tpcds_10000_text;
 use tpcds_10000_text;
 
 create external table call_center (
