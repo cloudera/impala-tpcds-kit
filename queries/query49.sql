@@ -1,5 +1,6 @@
 -- start query 1 in stream 0 using template query49.tpl
-select  
+select  channel, item, return_ratio, return_rank, currency_rank from
+ (select
  'web' as channel
  ,web.item
  ,web.return_ratio
@@ -121,6 +122,7 @@ select
  or 
  store.currency_rank <= 10
  )
+ ) x
  order by 1,4,5,2
  limit 100;
 
