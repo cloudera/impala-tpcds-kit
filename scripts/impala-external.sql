@@ -157,7 +157,7 @@ create external table customer (
   c_birth_country varchar(20),
   c_login varchar(13),
   c_email_address varchar(50),
-  c_last_review_date varchar(10)
+  c_last_review_date_sk int
 )
 row format delimited fields terminated by '|'
 stored as textfile
