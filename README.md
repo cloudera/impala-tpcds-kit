@@ -1,7 +1,11 @@
-# A TPC-DS like benchmark for Apache Impala
+# TPC-DS tools for Apache Impala
 
 The official and latest TPC-DS tools and specification can be found at
 [tpc.org](http://www.tpc.org/tpc_documents_current_versions/current_specifications.asp)
+
+The query templates and sample queries provided in this repo are compliant with the standards set out by the TPC-DS benchmark specification and include only minor query modifications (MQMs) as set out by section 4.2.3 of the specification. The modification list can be found in [`query-templates/README.md`](query-templates/README.md).
+
+If you use this repo for any results publication, please see [Fair Use of TPC Benchmarks](http://www.tpc.org/tpc_documents_current_versions/pdf/tpc_fair_use_quick_reference_v1.0.0.pdf).
 
 ## Step 0: Environment Setup
 
@@ -19,7 +23,7 @@ sudo yum -y install git gcc make flex bison byacc curl unzip patch
 
 ## Step 1: Generate Data
 
-Data generation is done via a MapReduce wrapper around TPC-DS `dsdgen`.  See `tpcds-gen/README.md` for more details on the commands to generate the flat files.
+Data generation is done via a MapReduce wrapper around TPC-DS `dsdgen`.  See [`tpcds-gen/README.md`](tpcds-gen/README.md) for more details on the commands to generate the flat files.
 
 ## Step 2: Load Data
 
