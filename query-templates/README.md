@@ -18,7 +18,7 @@ The following query variants are used:
 The following MQM are used:
 
 - Use of vendor-specific syntax of date expressions and date casting. (MQM f.1, f.8)
-    - q5a
+    - query5a
     - query12 
     - query16 
     - query20 

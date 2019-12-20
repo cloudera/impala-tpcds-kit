@@ -9,8 +9,8 @@ from
   ,customer_address
   ,call_center
 where
-    cast(d_date as timestamp) between cast('1999-04-01' as timestamp) and 
-           (cast('1999-04-01' as timestamp) + interval 60 days)
+    d_date between cast('1999-4-01' as date) and 
+           (cast('1999-4-01' as date) + interval 60 days)
 and cs1.cs_ship_date_sk = d_date_sk
 and cs1.cs_ship_addr_sk = ca_address_sk
 and ca_state = 'IA'

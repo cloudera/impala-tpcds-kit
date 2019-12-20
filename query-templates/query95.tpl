@@ -53,8 +53,8 @@ from
   ,customer_address
   ,web_site
 where
-    cast(d_date as timestamp) between cast('[YEAR]-0[MONTH]-01' as timestamp) and 
-           (cast('[YEAR]-0[MONTH]-01' as timestamp) + interval 60 days)
+    d_date between cast('[YEAR]-[MONTH]-01' as date) and 
+           (cast('[YEAR]-[MONTH]-01' as date) + interval 60 days)
 and ws1.ws_ship_date_sk = d_date_sk
 and ws1.ws_ship_addr_sk = ca_address_sk
 and ca_state = '[STATE]'

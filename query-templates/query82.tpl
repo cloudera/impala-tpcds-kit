@@ -45,7 +45,7 @@
  where i_current_price between [PRICE] and [PRICE]+30
  and inv_item_sk = i_item_sk
  and d_date_sk=inv_date_sk
- and cast(d_date as timestamp) between cast('[INVDATE]' as timestamp) and (cast('[INVDATE]' as timestamp) + interval 60 days)
+ and d_date between cast('[INVDATE]' as date) and (cast('[INVDATE]' as date) + interval 60 days)
  and i_manufact_id in ([MANUFACT_ID.1],[MANUFACT_ID.2],[MANUFACT_ID.3],[MANUFACT_ID.4])
  and inv_quantity_on_hand between 100 and 500
  and ss_item_sk = i_item_sk

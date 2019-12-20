@@ -54,8 +54,8 @@ where
 	ws_item_sk = i_item_sk 
   	and i_category in ('[CATEGORY.1]', '[CATEGORY.2]', '[CATEGORY.3]')
   	and ws_sold_date_sk = d_date_sk
-	and cast(d_date as timestamp) between cast('[SDATE]' as timestamp) 
-				and (cast('[SDATE]' as timestamp) + interval 30 days)
+	and d_date between cast('[SDATE]' as date) 
+				and (cast('[SDATE]' as date) + interval 30 days)
 group by 
 	i_item_id
         ,i_item_desc 
