@@ -13,7 +13,7 @@ select  a.ca_state state, count(*) cnt
  	     (select distinct (d_month_seq)
  	      from date_dim
                where d_year = 2000
- 	        and d_moy = 2 limit 1)
+ 	        and d_moy = 2)
  	and i.i_current_price > 1.2 * 
              (select avg(j.i_current_price) 
  	     from item j 

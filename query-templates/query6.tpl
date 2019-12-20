@@ -50,7 +50,7 @@
  	     (select distinct (d_month_seq)
  	      from date_dim
                where d_year = [YEAR]
- 	        and d_moy = [MONTH] limit 1)
+ 	        and d_moy = [MONTH] )
  	and i.i_current_price > 1.2 * 
              (select avg(j.i_current_price) 
  	     from item j 

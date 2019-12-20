@@ -52,21 +52,14 @@ Additional bug fixes:
 - query22a - removal of erroneous `group by`
 - query77a - missing comma in `cr` CTE
 
-The following additional modifications are used:
-
-- Addition of `LIMIT 1` for subquery with equality required to return a single row.
-    - query6
-    - query54
-    - query58
-
 Unsupported queries (9):
 
 - query8 (INTERSECT)
-- query14 (INTERSECT)
-- query38 (INTERSECT)
-- query87 (EXCEPT)
 - query9 (subquery in SELECT)
+- query14 (INTERSECT)
 - query23 (subquery in HAVING)
 - query24 (subquery in HAVING)
+- query38 (INTERSECT)
 - query44 (subquery in HAVING)
 - query45 (subquery in OR)
+- query87 (EXCEPT)
