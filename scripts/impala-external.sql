@@ -9,8 +9,8 @@ use tpcds_10000_text;
 create external table call_center (
   cc_call_center_sk int,
   cc_call_center_id varchar(16),
-  cc_rec_start_date varchar(10),
-  cc_rec_end_date varchar(10),
+  cc_rec_start_date date,
+  cc_rec_end_date date,
   cc_closed_date_sk int,
   cc_open_date_sk int,
   cc_name varchar(50),
@@ -206,7 +206,7 @@ tblproperties ('serialization.null.format'='')
 create external table date_dim (
   d_date_sk int,
   d_date_id varchar(16),
-  d_date varchar(10),
+  d_date date,
   d_month_seq int,
   d_week_seq int,
   d_quarter_seq int,
@@ -278,8 +278,8 @@ tblproperties ('serialization.null.format'='')
 create external table item (
   i_item_sk int,
   i_item_id varchar(16),
-  i_rec_start_date varchar(10),
-  i_rec_end_date varchar(10),
+  i_rec_start_date date,
+  i_rec_end_date date,
   i_item_desc varchar(200),
   i_current_price decimal(7,2),
   i_wholesale_cost decimal(7,2),
@@ -360,8 +360,8 @@ tblproperties ('serialization.null.format'='')
 create external table store (
   s_store_sk int,
   s_store_id varchar(16),
-  s_rec_start_date varchar(10),
-  s_rec_end_date varchar(10),
+  s_rec_start_date date,
+  s_rec_end_date date,
   s_closed_date_sk int,
   s_store_name varchar(50),
   s_number_employees int,
@@ -496,8 +496,8 @@ tblproperties ('serialization.null.format'='')
 create external table web_page (
   wp_web_page_sk int,
   wp_web_page_id varchar(16),
-  wp_rec_start_date varchar(10),
-  wp_rec_end_date varchar(10),
+  wp_rec_start_date date,
+  wp_rec_end_date date,
   wp_creation_date_sk int,
   wp_access_date_sk int,
   wp_autogen_flag varchar(1),
@@ -592,8 +592,8 @@ tblproperties ('serialization.null.format'='')
 create external table web_site (
   web_site_sk int,
   web_site_id varchar(16),
-  web_rec_start_date varchar(10),
-  web_rec_end_date varchar(10),
+  web_rec_start_date date,
+  web_rec_end_date date,
   web_name varchar(50),
   web_open_date_sk int,
   web_close_date_sk int,
