@@ -32,38 +32,25 @@
 -- 
 -- Contributors:
 -- 
- define DMS = random(1176,1224,uniform);
+ define GBOBC= text({"ca_city",1},{"ca_county",1},{"ca_state",1});
+ define YEAR=random(1998,2002,uniform);
+ define QOY=random(1,2,uniform);
  define _LIMIT=100;
  
- with results as
-( select sum(ws_net_paid) as total_sum, i_category, i_class, 0 as g_category, 0 as g_class 
- from
-    web_sales
-   ,date_dim       d1
-   ,item
- where
-    d1.d_month_seq between [DMS] and [DMS]+11
- and d1.d_date_sk = ws_sold_date_sk
- and i_item_sk  = ws_item_sk
- group by i_category,i_class
- ) ,
-
- results_rollup as
-( select total_sum ,i_category ,i_class, g_category, g_class, 0 as lochierarchy from results
-  union
-  select sum(total_sum) as total_sum, i_category, NULL as i_class, 0 as g_category, 1 as g_class, 1 as lochierarchy from results group by i_category
-  union
-  select sum(total_sum) as total_sum, NULL as i_category, NULL as i_class, 1 as g_category, 1 as g_class, 2 as lochierarchy from results)
-[_LIMITA] select [_LIMITB]
- total_sum ,i_category ,i_class, lochierarchy 
-   ,rank() over (
- 	partition by lochierarchy,
- 	case when g_class = 0 then i_category end 
- 	order by total_sum desc) as rank_within_parent
- from
- results_rollup
- order by
-   lochierarchy desc,
-   case when lochierarchy = 0 then i_category end,
-   rank_within_parent 
+ [_LIMITA] select [_LIMITB] ca_zip, [GBOBC], sum(ws_sales_price)
+ from web_sales, customer, customer_address, date_dim, item
+ where ws_bill_customer_sk = c_customer_sk
+ 	and c_current_addr_sk = ca_address_sk 
+ 	and ws_item_sk = i_item_sk 
+ 	and ( substr(ca_zip,1,5) in ('85669', '86197','88274','83405','86475', '85392', '85460', '80348', '81792')
+ 	      or 
+ 	      i_item_id in (select i_item_id
+                             from item
+                             where i_item_sk in (2, 3, 5, 7, 11, 13, 17, 19, 23, 29)
+                             )
+ 	    )
+ 	and ws_sold_date_sk = d_date_sk
+ 	and d_qoy = [QOY] and d_year = [YEAR]
+ group by ca_zip, [GBOBC]
+ order by ca_zip, [GBOBC]
  [_LIMITC];

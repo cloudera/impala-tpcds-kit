@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query93.tpl
+-- start query 1 in stream 0 using template query93.tpl using seed 1200409435
 select  ss_customer_sk
             ,sum(act_sales) sumsales
       from (select ss_item_sk

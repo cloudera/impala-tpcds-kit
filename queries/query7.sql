@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query7.tpl
+-- start query 1 in stream 0 using template query7.tpl using seed 1930872976
 select  i_item_id, 
         avg(ss_quantity) agg1,
         avg(ss_list_price) agg2,

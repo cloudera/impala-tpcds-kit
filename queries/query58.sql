@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query58.tpl
+-- start query 1 in stream 0 using template query58.tpl using seed 1819994127
 with ss_items as
  (select i_item_id item_id
         ,sum(ss_ext_sales_price) ss_item_rev 

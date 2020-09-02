@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query95.tpl
+-- start query 1 in stream 0 using template query95.tpl using seed 2031708268
 with ws_wh as
 (select ws1.ws_order_number,ws1.ws_warehouse_sk wh1,ws2.ws_warehouse_sk wh2
  from web_sales ws1,web_sales ws2
@@ -14,8 +14,8 @@ from
   ,customer_address
   ,web_site
 where
-    d_date between cast('1999-05-01' as date) and 
-           (cast('1999-05-01' as date) + interval 60 days)
+    d_date between cast('1999-5-01' as date) and 
+           (cast('1999-5-01' as date) + interval 60 days)
 and ws1.ws_ship_date_sk = d_date_sk
 and ws1.ws_ship_addr_sk = ca_address_sk
 and ca_state = 'TX'

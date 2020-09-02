@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query32.tpl
+-- start query 1 in stream 0 using template query32.tpl using seed 2031708268
 select  sum(cs_ext_discount_amt)  as "excess discount amount" 
 from 
    catalog_sales 

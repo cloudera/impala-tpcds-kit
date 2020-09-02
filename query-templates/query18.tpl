@@ -31,7 +31,7 @@
 --     ADVANCE NOTICE OF THE POSSIBILITY OF SUCH DAMAGES. 
 -- 
 -- Contributors:
---
+-- 
  define YEAR = random(1998, 2002, uniform);
  define GEN= dist(gender, 1, 1);
  define ES= dist(education, 1, 1);
@@ -39,19 +39,19 @@
  define MONTH=ulist(random(1,12,uniform),6);
  define _LIMIT=100;
  
- with results as
- (select i_item_id,
+ [_LIMITA] select [_LIMITB] i_item_id,
         ca_country,
         ca_state, 
         ca_county,
-        cast(cs_quantity as decimal(12,2)) agg1,
-        cast(cs_list_price as decimal(12,2)) agg2,
-        cast(cs_coupon_amt as decimal(12,2)) agg3,
-        cast(cs_sales_price as decimal(12,2)) agg4,
-        cast(cs_net_profit as decimal(12,2)) agg5,
-        cast(c_birth_year as decimal(12,2)) agg6,
-        cast(cd1.cd_dep_count as decimal(12,2)) agg7
- from catalog_sales, customer_demographics cd1, customer_demographics cd2, customer, customer_address, date_dim, item
+        avg( cast(cs_quantity as decimal(12,2))) agg1,
+        avg( cast(cs_list_price as decimal(12,2))) agg2,
+        avg( cast(cs_coupon_amt as decimal(12,2))) agg3,
+        avg( cast(cs_sales_price as decimal(12,2))) agg4,
+        avg( cast(cs_net_profit as decimal(12,2))) agg5,
+        avg( cast(c_birth_year as decimal(12,2))) agg6,
+        avg( cast(cd1.cd_dep_count as decimal(12,2))) agg7
+ from catalog_sales, customer_demographics cd1, 
+      customer_demographics cd2, customer, customer_address, date_dim, item
  where cs_sold_date_sk = d_date_sk and
        cs_item_sk = i_item_sk and
        cs_bill_cdemo_sk = cd1.cd_demo_sk and
@@ -62,33 +62,12 @@
        c_current_addr_sk = ca_address_sk and
        c_birth_month in ([MONTH.1],[MONTH.2],[MONTH.3],[MONTH.4],[MONTH.5],[MONTH.6]) and
        d_year = [YEAR] and
-       ca_state in ('[STATE.1]','[STATE.2]','[STATE.3]','[STATE.4]','[STATE.5]','[STATE.6]','[STATE.7]')
- )
- [_LIMITA] select [_LIMITB] i_item_id, ca_country, ca_state, ca_county, agg1, agg2, agg3, agg4, agg5, agg6, agg7
- from (
- 	select i_item_id, ca_country, ca_state, ca_county, avg(agg1) agg1, 
- 		avg(agg2) agg2, avg(agg3) agg3, avg(agg4) agg4, avg(agg5) agg5, avg(agg6) agg6, avg(agg7) agg7 
- 	from results
-	group by i_item_id, ca_country, ca_state, ca_county
- 	union all
- 	select i_item_id, ca_country, ca_state, NULL as county, avg(agg1) agg1, avg(agg2) agg2, avg(agg3) agg3,
-		avg(agg4) agg4, avg(agg5) agg5, avg(agg6) agg6, avg(agg7) agg7 
-	from results
-	group by i_item_id, ca_country, ca_state
- 	union all
-	select i_item_id, ca_country, NULL as ca_state, NULL as county, avg(agg1) agg1, avg(agg2) agg2, avg(agg3) agg3,
-		avg(agg4) agg4, avg(agg5) agg5, avg(agg6) agg6, avg(agg7) agg7 
-	from results
- 	group by i_item_id, ca_country
- 	union all
- 	select i_item_id, NULL as ca_country, NULL as ca_state, NULL as county, avg(agg1) agg1, avg(agg2) agg2, avg(agg3) agg3,
-		avg(agg4) agg4, avg(agg5) agg5, avg(agg6) agg6, avg(agg7) agg7 
-	from results
-	group by i_item_id
-	union all
-	select NULL AS i_item_id, NULL as ca_country, NULL as ca_state, NULL as county, avg(agg1) agg1, avg(agg2) agg2, avg(agg3) agg3,
-		avg(agg4) agg4, avg(agg5) agg5, avg(agg6) agg6, avg(agg7) agg7 
-	from results
- ) foo
- order by ca_country, ca_state, ca_county, i_item_id
+       ca_state in ('[STATE.1]','[STATE.2]','[STATE.3]'
+                   ,'[STATE.4]','[STATE.5]','[STATE.6]','[STATE.7]')
+ group by rollup (i_item_id, ca_country, ca_state, ca_county)
+ order by ca_country,
+        ca_state, 
+        ca_county,
+	i_item_id
  [_LIMITC];
+

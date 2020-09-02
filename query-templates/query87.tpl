@@ -32,46 +32,25 @@
 -- 
 -- Contributors:
 -- 
- define _LIMIT=100; 
- define DMS = random(1176,1224,uniform);
- with results as
-( select
-    sum(ss_net_profit) as total_sum ,s_state ,s_county, 0 as gstate, 0 as g_county
- from
-    store_sales
-  ,date_dim      d1
-  ,store
- where
-    d1.d_month_seq between [DMS] and [DMS] + 11
- and d1.d_date_sk = ss_sold_date_sk
- and s_store_sk  = ss_store_sk
- and s_state in
-            ( select s_state
-              from  (select s_state as s_state,
-                 rank() over ( partition by s_state order by sum(ss_net_profit) desc) as ranking
-                      from  store_sales, store, date_dim
-                      where d_month_seq between [DMS] and [DMS] + 11
-                 and d_date_sk = ss_sold_date_sk
-                 and s_store_sk  = ss_store_sk
-                      group by s_state
-                    ) tmp1 
-              where ranking <= 5)
-  group by s_state,s_county) ,  
- results_rollup as 
-(select total_sum ,s_state ,s_county, 0 as g_state, 0 as g_county, 0 as lochierarchy from results
- union
- select sum(total_sum) as total_sum,s_state, NULL as s_county, 0 as g_state, 1 as g_county, 1 as lochierarchy from results group by s_state
- union
- select sum(total_sum) as total_sum ,NULL as s_state ,NULL as s_county, 1 as g_state, 1 as g_county, 2 as lochierarchy from results)
- [_LIMITA] select [_LIMITB] total_sum ,s_state ,s_county, lochierarchy 
-  ,rank() over (
-     partition by lochierarchy, 
-     case when g_county = 0 then s_state end 
-     order by total_sum desc) as rank_within_parent
- from results_rollup
- order by
-  lochierarchy desc
-  ,case when lochierarchy = 0 then s_state end
-  ,rank_within_parent
- [_LIMITC];
- 
+define DMS = random(1176,1224, uniform); 
+
+select count(*) 
+from ((select distinct c_last_name, c_first_name, d_date
+       from store_sales, date_dim, customer
+       where store_sales.ss_sold_date_sk = date_dim.d_date_sk
+         and store_sales.ss_customer_sk = customer.c_customer_sk
+         and d_month_seq between [DMS] and [DMS]+11)
+       except
+      (select distinct c_last_name, c_first_name, d_date
+       from catalog_sales, date_dim, customer
+       where catalog_sales.cs_sold_date_sk = date_dim.d_date_sk
+         and catalog_sales.cs_bill_customer_sk = customer.c_customer_sk
+         and d_month_seq between [DMS] and [DMS]+11)
+       except
+      (select distinct c_last_name, c_first_name, d_date
+       from web_sales, date_dim, customer
+       where web_sales.ws_sold_date_sk = date_dim.d_date_sk
+         and web_sales.ws_bill_customer_sk = customer.c_customer_sk
+         and d_month_seq between [DMS] and [DMS]+11)
+) cool_cust
+;

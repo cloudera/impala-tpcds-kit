@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query53.tpl
+-- start query 1 in stream 0 using template query53.tpl using seed 1200409435
 select  * from 
 (select i_manufact_id,
 sum(ss_sales_price) sum_sales,

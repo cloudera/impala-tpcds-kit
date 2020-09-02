@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query71.tpl
+-- start query 1 in stream 0 using template query71.tpl using seed 1819994127
 select i_brand_id brand_id, i_brand brand,t_hour,t_minute,
  	sum(ext_price) ext_price
  from item, (select ws_ext_sales_price as ext_price, 

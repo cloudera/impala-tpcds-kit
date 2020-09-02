@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query49.tpl
+-- start query 1 in stream 0 using template query49.tpl using seed 1819994127
 select  channel, item, return_ratio, return_rank, currency_rank from
  (select
  'web' as channel

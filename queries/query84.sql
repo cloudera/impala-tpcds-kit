@@ -1,6 +1,6 @@
--- start query 1 in stream 0 using template query84.tpl
+-- start query 1 in stream 0 using template query84.tpl using seed 1819994127
 select  c_customer_id as customer_id
-       , concat(coalesce(c_last_name,''), ', ', coalesce(c_first_name,'')) as customername
+       , coalesce(c_last_name,'') || ', ' || coalesce(c_first_name,'') as customername
  from customer
      ,customer_address
      ,customer_demographics

@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query57.tpl
+-- start query 1 in stream 0 using template query57.tpl using seed 1930872976
 with v1 as(
  select i_category, i_brand,
         cc_name,

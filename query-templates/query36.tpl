@@ -33,7 +33,7 @@
 -- Contributors:
 -- 
  define YEAR=random(1998,2002,uniform);
- define STATENUMBER=list(random(1, rowcount("active_states", "store"), uniform),8);
+ define STATENUMBER=ulist(random(1, rowcount("active_states", "store"), uniform),8);
  define STATE_A=distmember(fips_county,[STATENUMBER.1], 3);
  define STATE_B=distmember(fips_county,[STATENUMBER.2], 3);
  define STATE_C=distmember(fips_county,[STATENUMBER.3], 3);
@@ -44,13 +44,15 @@
  define STATE_H=distmember(fips_county,[STATENUMBER.8], 3);
  define _LIMIT=100;
  
- with results as
- (select 
-    sum(ss_net_profit) as ss_net_profit, sum(ss_ext_sales_price) as ss_ext_sales_price,
+ [_LIMITA] select [_LIMITB] 
     sum(ss_net_profit)/sum(ss_ext_sales_price) as gross_margin
    ,i_category
    ,i_class
-   ,0 as g_category, 0 as g_class
+   ,grouping(i_category)+grouping(i_class) as lochierarchy
+   ,rank() over (
+ 	partition by grouping(i_category)+grouping(i_class),
+ 	case when grouping(i_class) = 0 then i_category end 
+ 	order by sum(ss_net_profit)/sum(ss_ext_sales_price) asc) as rank_within_parent
  from
     store_sales
    ,date_dim       d1
@@ -58,29 +60,15 @@
    ,store
  where
     d1.d_year = [YEAR] 
-    and d1.d_date_sk = ss_sold_date_sk
-    and i_item_sk  = ss_item_sk 
-    and s_store_sk  = ss_store_sk
-    and s_state in ('[STATE_A]','[STATE_B]','[STATE_C]','[STATE_D]',
+ and d1.d_date_sk = ss_sold_date_sk
+ and i_item_sk  = ss_item_sk 
+ and s_store_sk  = ss_store_sk
+ and s_state in ('[STATE_A]','[STATE_B]','[STATE_C]','[STATE_D]',
                  '[STATE_E]','[STATE_F]','[STATE_G]','[STATE_H]')
- group by i_category,i_class)
- ,
- results_rollup as
- (select gross_margin ,i_category ,i_class,0 as t_category, 0 as t_class, 0 as lochierarchy from results
- union
- select sum(ss_net_profit)/sum(ss_ext_sales_price) as gross_margin,
-   i_category, NULL AS i_class, 0 as t_category, 1 as t_class, 1 as lochierarchy from results group by i_category
- union
- select sum(ss_net_profit)/sum(ss_ext_sales_price) as gross_margin,
-   NULL AS i_category ,NULL AS i_class, 1 as t_category, 1 as t_class, 2 as lochierarchy from results)
- [_LIMITA] select [_LIMITB]
-  gross_margin ,i_category ,i_class, lochierarchy,rank() over (
- 	partition by lochierarchy, case when t_class = 0 then i_category end 
- 	order by gross_margin asc) as rank_within_parent
- from results_rollup
+ group by rollup(i_category,i_class)
  order by
    lochierarchy desc
-  ,case when lochierarchy = 0 then i_category end
+  ,case when grouping(i_category)+grouping(i_class) = 0 then i_category end
   ,rank_within_parent
   [_LIMITC];
 

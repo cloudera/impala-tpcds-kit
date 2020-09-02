@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query31.tpl
+-- start query 1 in stream 0 using template query31.tpl using seed 1819994127
 with ss as
  (select ca_county,d_qoy, d_year,sum(ss_ext_sales_price) as store_sales
  from store_sales,date_dim,customer_address

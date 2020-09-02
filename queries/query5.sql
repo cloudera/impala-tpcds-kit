@@ -1,9 +1,9 @@
--- start query 1 in stream 0 using template query5a.tpl
+-- start query 1 in stream 0 using template query5.tpl using seed 1819994127
 with ssr as
  (select s_store_id,
         sum(sales_price) as sales,
         sum(profit) as profit,
-        sum(return_amt) as return_amt,
+        sum(return_amt) as `returns`,
         sum(net_loss) as profit_loss
  from
   ( select  ss_store_sk as store_sk,
@@ -26,7 +26,7 @@ with ssr as
      store
  where date_sk = d_date_sk
        and d_date between cast('1998-08-04' as date) 
-                  and (cast('1998-08-04' as date) + interval 14 days)
+                  and (cast('1998-08-04' as date) +  interval 14 days)
        and store_sk = s_store_sk
  group by s_store_id)
  ,
@@ -34,7 +34,7 @@ with ssr as
  (select cp_catalog_page_id,
         sum(sales_price) as sales,
         sum(profit) as profit,
-        sum(return_amt) as return_amt,
+        sum(return_amt) as `returns`,
         sum(net_loss) as profit_loss
  from
   ( select  cs_catalog_page_sk as page_sk,
@@ -57,7 +57,7 @@ with ssr as
      catalog_page
  where date_sk = d_date_sk
        and d_date between cast('1998-08-04' as date)
-                  and (cast('1998-08-04' as date) + interval 14 days)
+                  and (cast('1998-08-04' as date) +  interval 14 days)
        and page_sk = cp_catalog_page_sk
  group by cp_catalog_page_id)
  ,
@@ -65,7 +65,7 @@ with ssr as
  (select web_site_id,
         sum(sales_price) as sales,
         sum(profit) as profit,
-        sum(return_amt) as return_amt,
+        sum(return_amt) as `returns`,
         sum(net_loss) as profit_loss
  from
   ( select  ws_web_site_sk as wsr_web_site_sk,
@@ -90,46 +90,39 @@ with ssr as
      web_site
  where date_sk = d_date_sk
        and d_date between cast('1998-08-04' as date)
-                  and (cast('1998-08-04' as date) + interval 14 days)
+                  and (cast('1998-08-04' as date) +  interval 14 days)
        and wsr_web_site_sk = web_site_sk
  group by web_site_id)
- ,
- results as
- (select channel
+  select  channel
         , id
         , sum(sales) as sales
-        , sum(return_amt) as return_amt
+        , sum(`returns`) as `returns`
         , sum(profit) as profit
  from 
  (select 'store channel' as channel
-        , concat('store', s_store_id) as id
+        , 'store' || s_store_id as id
         , sales
-        , return_amt
+        , `returns`
         , (profit - profit_loss) as profit
  from   ssr
  union all
  select 'catalog channel' as channel
-        , concat('catalog_page', cp_catalog_page_id) as id
+        , 'catalog_page' || cp_catalog_page_id as id
         , sales
-        , return_amt
+        , `returns`
         , (profit - profit_loss) as profit
  from  csr
  union all
  select 'web channel' as channel
-        , concat('web_site', web_site_id) as id
+        , 'web_site' || web_site_id as id
         , sales
-        , return_amt
+        , `returns`
         , (profit - profit_loss) as profit
  from   wsr
  ) x
- group by channel, id)
- select  channel, id, sales, return_amt, profit from ( 
-  select channel, id, sales, return_amt, profit from results
-  union
-  select channel, null as id, sum(sales), sum(return_amt), sum(profit) from results group by channel
-  union
-  select null as channel, null as id, sum(sales), sum(return_amt), sum(profit) from results) foo
-order by channel, id
-limit 100;
+ group by rollup (channel, id)
+ order by channel
+         ,id
+ limit 100;
 
--- end query 1 in stream 0 using template query5a.tpl
+-- end query 1 in stream 0 using template query5.tpl

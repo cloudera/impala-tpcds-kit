@@ -94,7 +94,7 @@
  	,w_county
  	,w_state
  	,w_country
- 	,concat('[SMC.1]', ',', '[SMC.2]') as ship_carriers
+ 	,'[SMC.1]' || ',' || '[SMC.2]' as ship_carriers
        ,d_year as year
  	,sum(case when d_moy = 1 
  		then [SALESONE]* ws_quantity else 0 end) as jan_sales
@@ -174,8 +174,8 @@
  	,w_county
  	,w_state
  	,w_country
-    ,concat('[SMC.1]', ',', '[SMC.2]') as ship_carriers
-  ,d_year as year
+ 	,'[SMC.1]' || ',' || '[SMC.2]' as ship_carriers
+       ,d_year as year
  	,sum(case when d_moy = 1 
  		then [SALESTWO]* cs_quantity else 0 end) as jan_sales
  	,sum(case when d_moy = 2 

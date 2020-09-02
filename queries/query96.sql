@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query96.tpl
+-- start query 1 in stream 0 using template query96.tpl using seed 1819994127
 select  count(*) 
 from store_sales
     ,household_demographics 

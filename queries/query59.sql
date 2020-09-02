@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query59.tpl
+-- start query 1 in stream 0 using template query59.tpl using seed 1200409435
 with wss as 
  (select d_week_seq,
         ss_store_sk,

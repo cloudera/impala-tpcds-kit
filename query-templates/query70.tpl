@@ -32,45 +32,42 @@
 -- 
 -- Contributors:
 -- 
+ define DMS = random(1176,1224,uniform);
+ define _LIMIT=100;
+ 
+ [_LIMITA] select [_LIMITB] 
+    sum(ss_net_profit) as total_sum
+   ,s_state
+   ,s_county
+   ,grouping(s_state)+grouping(s_county) as lochierarchy
+   ,rank() over (
+ 	partition by grouping(s_state)+grouping(s_county),
+ 	case when grouping(s_county) = 0 then s_state end 
+ 	order by sum(ss_net_profit) desc) as rank_within_parent
+ from
+    store_sales
+   ,date_dim       d1
+   ,store
+ where
+    d1.d_month_seq between [DMS] and [DMS]+11
+ and d1.d_date_sk = ss_sold_date_sk
+ and s_store_sk  = ss_store_sk
+ and s_state in
+             ( select s_state
+               from  (select s_state as s_state,
+ 			    rank() over ( partition by s_state order by sum(ss_net_profit) desc) as ranking
+                      from   store_sales, store, date_dim
+                      where  d_month_seq between [DMS] and [DMS]+11
+ 			    and d_date_sk = ss_sold_date_sk
+ 			    and s_store_sk  = ss_store_sk
+                      group by s_state
+                     ) tmp1 
+               where ranking <= 5
+             )
+ group by rollup(s_state,s_county)
+ order by
+   lochierarchy desc
+  ,case when grouping(s_state)+grouping(s_county) = 0 then s_state end
+  ,rank_within_parent
+ [_LIMITC];
 
-define DMS = random(1176,1224,uniform); 
-define _LIMIT=100;
-
-with results as 
-(select  i_product_name
-             ,i_brand
-             ,i_class
-             ,i_category
-             ,inv_quantity_on_hand qoh
-       from inventory
-           ,date_dim
-           ,item
-           ,warehouse
-       where  inv_date_sk=d_date_sk
-              and inv_item_sk=i_item_sk
-              and inv_warehouse_sk = w_warehouse_sk
-              and d_month_seq between [DMS] and [DMS] + 11
-),
-results_rollup as 
-(select i_product_name, i_brand, i_class, i_category,avg(qoh) qoh 
-from results 
-group by i_product_name,i_brand,i_class,i_category
-union all 
-select i_product_name, i_brand, i_class, null i_category,avg(qoh) qoh 
-from results
-group by i_product_name,i_brand,i_class
-union all 
-select i_product_name, i_brand, null i_class, null i_category,avg(qoh) qoh 
-from results
-group by i_product_name,i_brand
-union all 
-select i_product_name, null i_brand, null i_class, null i_category,avg(qoh)  qoh 
-from results
-group by i_product_name
-union all 
-select null i_product_name, null i_brand, null i_class, null i_category,avg(qoh) qoh 
-from results)
-[_LIMITA] select [_LIMITB] i_product_name, i_brand, i_class, i_category,qoh
-      from results_rollup
-      order by qoh, i_product_name, i_brand, i_class, i_category
-[_LIMITC];

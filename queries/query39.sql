@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query39.tpl
+-- start query 1 in stream 0 using template query39.tpl using seed 1819994127
 with inv as
 (select w_warehouse_name,w_warehouse_sk,i_item_sk,d_moy
        ,stdev,mean, case mean when 0 then null else stdev/mean end cov

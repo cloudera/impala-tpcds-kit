@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query72.tpl
+-- start query 1 in stream 0 using template query72.tpl using seed 2031708268
 select  i_item_desc
       ,w_warehouse_name
       ,d1.d_week_seq
@@ -18,7 +18,7 @@ left outer join promotion on (cs_promo_sk=p_promo_sk)
 left outer join catalog_returns on (cr_item_sk = cs_item_sk and cr_order_number = cs_order_number)
 where d1.d_week_seq = d2.d_week_seq
   and inv_quantity_on_hand < cs_quantity 
-  and d3.d_date > d1.d_date + interval 5 days
+  and cast(d3.d_date as date) > cast(d1.d_date as date) + interval 5 days
   and hd_buy_potential = '1001-5000'
   and d1.d_year = 2001
   and cd_marital_status = 'M'

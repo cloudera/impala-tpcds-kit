@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query6.tpl
+-- start query 1 in stream 0 using template query6.tpl using seed 1819994127
 select  a.ca_state state, count(*) cnt
  from customer_address a
      ,customer c
@@ -13,7 +13,7 @@ select  a.ca_state state, count(*) cnt
  	     (select distinct (d_month_seq)
  	      from date_dim
                where d_year = 2000
- 	        and d_moy = 2)
+ 	        and d_moy = 2 )
  	and i.i_current_price > 1.2 * 
              (select avg(j.i_current_price) 
  	     from item j 

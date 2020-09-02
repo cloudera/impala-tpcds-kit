@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query17.tpl
+-- start query 1 in stream 0 using template query17.tpl using seed 1200409435
 select  i_item_id
        ,i_item_desc
        ,s_state

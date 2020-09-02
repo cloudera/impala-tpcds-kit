@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query52.tpl
+-- start query 1 in stream 0 using template query52.tpl using seed 1819994127
 select  dt.d_year
  	,item.i_brand_id brand_id
  	,item.i_brand brand

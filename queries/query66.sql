@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query66.tpl
+-- start query 1 in stream 0 using template query66.tpl using seed 2042478054
 select   
          w_warehouse_name
  	,w_warehouse_sq_ft
@@ -52,7 +52,7 @@ select
  	,w_county
  	,w_state
  	,w_country
- 	,concat('DIAMOND', ',', 'AIRBORNE') as ship_carriers
+ 	,'DIAMOND' || ',' || 'AIRBORNE' as ship_carriers
        ,d_year as year
  	,sum(case when d_moy = 1 
  		then ws_sales_price* ws_quantity else 0 end) as jan_sales
@@ -132,8 +132,8 @@ select
  	,w_county
  	,w_state
  	,w_country
-    ,concat('DIAMOND', ',', 'AIRBORNE') as ship_carriers
-  ,d_year as year
+ 	,'DIAMOND' || ',' || 'AIRBORNE' as ship_carriers
+       ,d_year as year
  	,sum(case when d_moy = 1 
  		then cs_ext_sales_price* cs_quantity else 0 end) as jan_sales
  	,sum(case when d_moy = 2 

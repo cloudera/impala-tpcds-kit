@@ -5,6 +5,7 @@
 --
 
 use tpcds_10000_parquet;
+set SORT_RUN_BYTES_LIMIT=512mb;
 
 insert overwrite table call_center            select * from tpcds_10000_text.call_center;
 insert overwrite table catalog_page           select * from tpcds_10000_text.catalog_page;

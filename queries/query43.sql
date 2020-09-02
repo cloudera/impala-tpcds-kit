@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query43.tpl
+-- start query 1 in stream 0 using template query43.tpl using seed 1819994127
 select  s_store_name, s_store_id,
         sum(case when (d_day_name='Sunday') then ss_sales_price else null end) sun_sales,
         sum(case when (d_day_name='Monday') then ss_sales_price else null end) mon_sales,

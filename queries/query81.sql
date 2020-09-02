@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query81.tpl
+-- start query 1 in stream 0 using template query81.tpl using seed 1819994127
 with customer_total_return as
  (select cr_returning_customer_sk as ctr_customer_sk
         ,ca_state as ctr_state, 

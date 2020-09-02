@@ -1,4 +1,4 @@
--- start query 1 in stream 0 using template query69.tpl
+-- start query 1 in stream 0 using template query69.tpl using seed 797269820
 select  
   cd_gender,
   cd_marital_status,
