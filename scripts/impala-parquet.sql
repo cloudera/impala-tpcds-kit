@@ -9,15 +9,84 @@ use tpcds_10000_parquet;
 --
 -- unpartitioned tables
 --
+
+create table customer
+(
+  c_customer_sk             integer,
+  c_customer_id             varchar(16),
+  c_current_cdemo_sk        integer,
+  c_current_hdemo_sk        integer,
+  c_current_addr_sk         integer,
+  c_first_shipto_date_sk    integer,
+  c_first_sales_date_sk     integer,
+  c_salutation              varchar(10),
+  c_first_name              varchar(20),
+  c_last_name               varchar(30),
+  c_preferred_cust_flag     varchar(1),
+  c_birth_day               integer,
+  c_birth_month             integer,
+  c_birth_year              integer,
+  c_birth_country           varchar(20),
+  c_login                   varchar(13),
+  c_email_address           varchar(50),
+  c_last_review_date_sk     integer
+)
+sort by (c_customer_sk)
+stored as parquet;
+
+create table customer_address
+(
+  ca_address_sk         integer,
+  ca_address_id         varchar(16),
+  ca_street_number      varchar(10),
+  ca_street_name        varchar(60),
+  ca_street_type        varchar(15),
+  ca_suite_number       varchar(10),
+  ca_city               varchar(60),
+  ca_county             varchar(30),
+  ca_state              varchar(2),
+  ca_zip                varchar(10),
+  ca_country            varchar(20),
+  ca_gmt_offset         decimal(5,2),
+  ca_location_type      varchar(20)
+)
+sort by (ca_address_sk)
+stored as parquet;
+
+create table item
+(
+  i_item_sk         integer,
+  i_item_id         varchar(16),
+  i_rec_start_date  date,
+  i_rec_end_date    date,
+  i_item_desc       varchar(200),
+  i_current_price   decimal(7,2),
+  i_wholesale_cost  decimal(7,2),
+  i_brand_id        integer,
+  i_brand           varchar(50),
+  i_class_id        integer,
+  i_class           varchar(50),
+  i_category_id     integer,
+  i_category        varchar(50),
+  i_manufact_id     integer,
+  i_manufact        varchar(50),
+  i_size            varchar(20),
+  i_formulation     varchar(20),
+  i_color           varchar(20),
+  i_units           varchar(10),
+  i_container       varchar(10),
+  i_manager_id      integer,
+  i_product_name    varchar(50)
+)
+sort by (i_item_sk)
+stored as parquet;
+
 create table call_center            like tpcds_10000_text.call_center            stored as parquet;
 create table catalog_page           like tpcds_10000_text.catalog_page           stored as parquet;
-create table customer               like tpcds_10000_text.customer               stored as parquet;
-create table customer_address       like tpcds_10000_text.customer_address       stored as parquet;
 create table customer_demographics  like tpcds_10000_text.customer_demographics  stored as parquet;
 create table date_dim               like tpcds_10000_text.date_dim               stored as parquet;
 create table household_demographics like tpcds_10000_text.household_demographics stored as parquet;
 create table income_band            like tpcds_10000_text.income_band            stored as parquet;
-create table item                   like tpcds_10000_text.item                   stored as parquet;
 create table promotion              like tpcds_10000_text.promotion              stored as parquet;
 create table reason                 like tpcds_10000_text.reason                 stored as parquet;
 create table ship_mode              like tpcds_10000_text.ship_mode              stored as parquet;
