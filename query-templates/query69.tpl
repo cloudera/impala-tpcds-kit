@@ -33,7 +33,7 @@
 -- Contributors:
 -- 
  define MONTH=random(1,4,uniform);
- define YEAR=random(1999,2004,uniform);
+ define YEAR=random(1998,2002,uniform);
  define STATE= ulist(dist(fips_county, 3, 1), 3);
  define _LIMIT=100;
  
